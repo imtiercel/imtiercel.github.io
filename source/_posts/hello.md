@@ -30,30 +30,35 @@ git --version   //验证git是否安装成功（windows下基本就是点下一�
 
 ### 3.Hexo  [首页](https://hexo.io/)                                                        [文档](https://hexo.io/docs/)                                                        [主题](https://hexo.io/themes/)
 
-```java
-/**
- *
- * 描述：
- *
- * 创建者  B.HJ
- * 创建时间 2017-05-12-10:44
- * 创建描述：
- *
- * 审核者：
- * 审核时间：
- * 审核描述：
- *
- * 修改者：
- * 修改时间：
- * 修改内容：
- *//*
+```
+npm install -g hexo			// 安装hexo
+hexo init				// 初始化hexo(当前文件夹)
+目录结构：
+    初始化hexo目录
+       ├─node_modules			// hexo的插件目录
+       ├─scaffolds			// layout模板文件目录，其中的md文件可以添加编辑
+       |    ├─draft.md
+       |    ├─page.md
+       |    └─post.md
+       ├─source				// 文章源码目录，该目录下的markdown和html文件均会被hexo处理
+       |	|			// 该页面对应repo的根目录，404文件、favicon.ico文件，CNAME文件等都应该放在这里
+       |	└─_posts		// 发布文章
+       ├─themes				// 主题文件目录
+       |	└─landscape		// hexo初始化默认提供的模板，改模板时就是将需要的模板放到此目录
+       ├─.gitignore			// git的忽略规则文件
+       ├─_config.yml			// 全局配置文件，大多数的设置都在这里
+       └─package.json			// 应用程序数据，指明hexo的版本等信息，类似于一般软件中的关于按钮
+       
+```
 
-public class TestPdf {
+### 4.在其他电脑下载分支hexo
 
-    public static void main(String[] args) throws Exception {
-        CompactInfo info = new CompactInfo("公司名字剪短发了快速搭建付款了就");
-        Map<String, Object> data = BeanToMapUtil.objectToMap(info);
-        GenerateContract.generate(data);
-    }
-}
+git clone -b hexo https://github.com/yourname/yourname.github.io.git
+
+```
+npm install hexo --save     // 安装hexo
+npm install -g hexo-cli     // 安装hexo的client
+npm install 				// 
+
+git push origin hexo:hexo
 ```
