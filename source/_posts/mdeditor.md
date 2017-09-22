@@ -1,11 +1,11 @@
 ---
-title: mdeditor
-date: 2017-09-20 14:02:19
+title: Cmd Markdown 语法效果查看
+date: 2017-09-18 14:02:19
 tags:
 	- hexo
 	- blog
 	- markdown
-categories: 
+categories: blog搭建
 cover_picture: https://www.zybuluo.com/static/img/logo.png
 ---
 

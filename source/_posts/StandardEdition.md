@@ -1,10 +1,10 @@
 ---
 title: Hexo + GitHub搭建个人博客 --- Standard Edition
-date: 2017-09-18 11:44:59
+date: 2017-09-20 11:44:59
 tags: 
 	- hexo
 	- blog
-categories: 
+categories: blog搭建
 cover_picture: http://ojirj5wkr.bkt.clouddn.com/github+hexo.jpg
 
 ---
@@ -140,3 +140,6 @@ npm install hexo-deployer-git --save	// hexo用git执行deploy的插件
 git add 修改的文件
 git push origin hexo:hexo
 ```
+junior
+Intermediate
+senior
