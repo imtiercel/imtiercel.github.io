@@ -104,6 +104,11 @@ npm install hexo-clean-css --save 			// CSS压缩
 npm install hexo-uglify --save 				// JS压缩
 npm install hexo-imagemin --save 			// imagages压缩
 ```
+`强行插入一条(坑)：在执行hexo s之前一定要检查一下4000端口是否被占用`
+```
+netstat -ano | findstr 4000
+如果被占用就用下面的方法更换端口或者卸载**福昕阅读器**你没看错，就是这个坑爹的阅读器。
+```
 ### ③几个常用的hexo命令
 ```
 hexo new "postName"			// 新建文章
@@ -121,25 +126,52 @@ hexo d
 ### 当然，每次一个命令也是比较烦的，尤其是调试效果的时候，所以可以这样
 hexo s -g				// 先生成再启动
 hexo s -g -p 5000			// 先生成再启动，端口使用5000
+### 这里调试的时候直接刷新页面就可以看到更新，之前不知道净关闭，重启了。也是醉了！
 ### 如果写个脚本来执行也可以。
 ```
-## 三、GitHub创建仓库
+## 三、GitHub注册及创建仓库
 
+### 1.GitHub账号注册(略)
 
+### 2.创建仓库
+	
+创建仓库：Repository name 使用自己的用户名，仓库名规则：
 
-### 4.在其他电脑下载分支hexo
+注意：`yourname` 必须是你的用户名。
+	
+`yourname/yourname.github.io`
 
-git clone -b hexo https://github.com/yourname/yourname.github.io.git
+![repository](http://oph264zoo.bkt.clouddn.com/17-5-28/42622869.jpg)
 
+访问 `yourname.github.io`，如果可以正常访问，那么 Github 的配置已经结束了。
+
+## 四、hexo和GitHub创建联系
+
+在hexo的配置文件中 `_config.yml`  加入以下内容(把yourname替换成自己的)
 ```
-npm install hexo --save     		// 安装hexo
-npm install -g hexo-cli     		// 安装hexo的client
-npm install 				// 安装插件命令
-npm install hexo-deployer-git --save	// hexo用git执行deploy的插件
-
-git add 修改的文件
-git push origin hexo:hexo
+deploy:
+  type: git 								#推送方式
+  repository: https://github.com/yourname/yourname.github.io.git	#你的推送地址
+  branch: master 							#你要推送的分支
 ```
-junior
-Intermediate
-senior
+`这里冒号后面有一个空格，需要注意。不然报错。`
+
+## 五、将blog发布到GitHub上
+
+hexo clean
+hexo g
+hexo d
+
+执行以上三条命令即可，最后一步会有提示输入用户名和密码。但是每次提交都要写用户名和密码岂不是很麻烦，下一篇将讲述如何避免此问题。
+
+目前技术博客简单列表
+
+| 名字      |    地址  | 创办年  |  备注  |
+| :--------:|:--------:| :--: |
+| 新浪      | www.sina.com.cn/ |  1998年 | 非技术起家 |
+| CSDN  | www.csdn.net/ |  1999年   |-----|
+| iteye      |    www.iteye.com/ | 2003年  |原名javaEye|
+| 博客园    |   www.cnblogs.com/ |  2004年  |-----|
+| 51CTO      |    www.51cto.com/ | 2005年  |-----|	
+| Stack Overflow      |    stackoverflow.com/ | 2008年  |问题命中率很高，前身也是两个blog|	
+| 简书      |    www.jianshu.com/ | 2013年  |-----|
