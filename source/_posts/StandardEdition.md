@@ -175,3 +175,9 @@ hexo d
 | 51CTO      |    www.51cto.com/ | 2005年  |-----|	
 | Stack Overflow      |    stackoverflow.com/ | 2008年  |问题命中率很高，前身也是两个blog|	
 | 简书      |    www.jianshu.com/ | 2013年  |-----|
+
+## 参考资料
+[Hexo搭建静态博客](http://huangjihua.com.cn/2015/10/15/hexo%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/)
+[基于hexo+GitHub搭建个人博客](http://alexpdh.com/2017/01/09/hexo-blog-building/)
+[使用hexo+github搭建免费个人博客详细教程](http://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html)
+[可能是最详细的 Hexo + GitHub Pages 搭建博客的教程](http://www.lovebxm.com/2017/05/30/buildBlog/)

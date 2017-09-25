@@ -54,6 +54,7 @@ cat ~/.ssh/github.pub
 ```
 ssh-agent bash			#连接gitagent
 ssh-add ~/.ssh/github		#将刚才生成的key缓存到ssh-agent中
+ssh -T git@github.com		#测试连接
 ```
 #### ⑤修改hexo配置
 ```
@@ -98,3 +99,11 @@ push hexo分支的命令
 git add 修改的文件
 git push origin hexo:hexo
 ```
+## 三、ico生成及图片调整
+推荐以下两个连接，会ps就当我没说好了。
+[favicon.ico生成](https://www.ico.la/)
+[图片调整](http://www.gaitubao.com/)
+## 四、中文乱码
+由于手动创建md文件可能不是utf-8无BOM的。调整下编码就好。
+## 五、保留CNAME、README.md等文件
+在博客根目录下的配置文件_config.yml中配置一下"skip_render"选项就行了，将不需要渲染的文件名称加入的其选项下就行了。
