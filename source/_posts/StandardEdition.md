@@ -175,6 +175,8 @@ hexo d
 | 51CTO      |    www.51cto.com/ | 2005年  |-----|	
 | Stack Overflow      |    stackoverflow.com/ | 2008年  |问题命中率很高，前身也是两个blog|	
 | 简书      |    www.jianshu.com/ | 2013年  |-----|
+|segmentfault|https://segmentfault.com/|2012年|-----|
+| developerworks|https://www.ibm.com/developerworks/cn/|-----|-----|
 
 ## 参考资料
 [Hexo搭建静态博客](http://huangjihua.com.cn/2015/10/15/hexo%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/)
