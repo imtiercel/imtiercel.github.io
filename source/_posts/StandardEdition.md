@@ -141,7 +141,7 @@ hexo s -g -p 5000			// 先生成再启动，端口使用5000
 	
 `yourname/yourname.github.io`
 
-![repository](http://oph264zoo.bkt.clouddn.com/17-5-28/42622869.jpg)
+![repository](http://s1.wailian.download/2017/11/29/newRepository.jpg)
 
 访问 `yourname.github.io`，如果可以正常访问，那么 Github 的配置已经结束了。
 
@@ -174,9 +174,9 @@ hexo d
 | 博客园    |   www.cnblogs.com/ |  2004年  |-----|
 | 51CTO      |    www.51cto.com/ | 2005年  |-----|	
 | Stack Overflow      |    stackoverflow.com/ | 2008年  |问题命中率很高，前身也是两个blog|	
+| segmentfault  |    www.sementfault.com/ | 2012年  |-----|
 | 简书      |    www.jianshu.com/ | 2013年  |-----|
-|segmentfault|https://segmentfault.com/|2012年|-----|
-| developerworks|https://www.ibm.com/developerworks/cn/|-----|-----|
+| developerworks|    www.ibm.com/developerworks/cn/ | -----  |-----|
 
 ## 参考资料
 [Hexo搭建静态博客](http://huangjihua.com.cn/2015/10/15/hexo%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/)
