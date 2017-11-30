@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redis数据类型之List | IM-Tiercel&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="IM-Tiercel's Blog" />
+  
+  <meta name="description" content="一、概述：在Redis中，List类型是按照插入顺序排序的字符串链表。和数据结构中的普通链表一样，我们可以在其头部(left)和尾部(right)添加新的元素。在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。List中可以包含的最大元素数量是4294967295。 从元素插入和删除的效率视角来看，如果我们是在链">
+<meta name="keywords" content="redis,noSql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis数据类型之List">
+<meta property="og:url" content="https://imtiercel.github.io/redis/redisdatatype/RedisOfList/index.html">
+<meta property="og:site_name" content="IM-Tiercel&#39;s Blog">
+<meta property="og:description" content="一、概述：在Redis中，List类型是按照插入顺序排序的字符串链表。和数据结构中的普通链表一样，我们可以在其头部(left)和尾部(right)添加新的元素。在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。List中可以包含的最大元素数量是4294967295。 从元素插入和删除的效率视角来看，如果我们是在链">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-30T15:45:10.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis数据类型之List">
+<meta name="twitter:description" content="一、概述：在Redis中，List类型是按照插入顺序排序的字符串链表。和数据结构中的普通链表一样，我们可以在其头部(left)和尾部(right)添加新的元素。在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。List中可以包含的最大元素数量是4294967295。 从元素插入和删除的效率视角来看，如果我们是在链">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">IM-Tiercel&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        IM-Tiercel&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 Java 开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="IM-Tiercel" target="_blank" href="//imtiercel.github.io/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/imtiercel">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/3953904265">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/redisdatatype/RedisOfList" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Redis数据类型之List
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/redis基础/">redis基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-11-30
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="一、概述："><a href="#一、概述：" class="headerlink" title="一、概述："></a>一、概述：</h3><p>在Redis中，List类型是按照插入顺序排序的字符串链表。和数据结构中的普通链表一样，我们可以在其头部(left)和尾部(right)添加新的元素。在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。List中可以包含的最大元素数量是4294967295。</p>
+<p>从元素插入和删除的效率视角来看，如果我们是在链表的两头插入或删除元素，这将会是非常高效的操作，即使链表中已经存储了百万条记录，该操作也可以在常量时间内完成。然而需要说明的是，如果元素插入或删除操作是作用于链表中间，那将会是非常低效的。相信对于有良好数据结构基础的开发者而言，这一点并不难理解。</p>
+<h3 id="二、相关命令列表："><a href="#二、相关命令列表：" class="headerlink" title="二、相关命令列表："></a>二、相关命令列表：</h3><p>命令原型    </p>
+<p>时间复杂度    命令描述    返回值</p>
+<pre><code>LPUSH key value [value ...]      
+</code></pre><p>在指定Key所关联的List Value的头部插入参数中给出的所有Values。如果该Key不存在，该命令将在插入之前创建一个与该Key关联的空链表，之后再将数据从链表的头部插入。如果该键的Value不是链表类型，该命令将返回相关的错误信息。     插入后链表中元素的数量。</p>
+<pre><code>LPUSHX key value      
+</code></pre><p>仅有当参数中指定的Key存在时，该命令才会在其所关联的List Value的头部插入参数中给出的Value，否则将不会有任何操作发生。    插入后链表中元素的数量。 </p>
+<pre><code>LRANGE key start stop      
+</code></pre><p>该命令的参数start和end都是0-based。即0表示链表头部(leftmost)的第一个元素。其中start的值也可以为负值，-1将表示链表中的最后一个元素，即尾部元素，-2表示倒数第二个并以此类推。该命令在获取元素时，start和end位置上的元素也会被取出。如果start的值大于链表中元素的数量，空链表将会被返回。如果end的值大于元素的数量，该命令则获取从start(包括start)开始，链表中剩余的所有元素。    返回指定范围内元素的列表。</p>
+<pre><code>LPOP key      
+</code></pre><p>返回并弹出指定Key关联的链表中的第一个元素，即头部元素，。如果该Key不存，返回nil。    链表头部的元素。</p>
+<pre><code>LLEN key     
+</code></pre><p>返回指定Key关联的链表中元素的数量，如果该Key不存在，则返回0。如果与该Key关联的Value的类型不是链表，则返回相关的错误信息。    链表中元素的数量。</p>
+<pre><code>LREM key count value  
+</code></pre><p>在指定Key关联的链表中，删除前count个值等于value的元素。如果count大于0，从头向尾遍历并删除，如果count小于0，则从尾向头遍历并删除。如果count等于0，则删除链表中所有等于value的元素。如果指定的Key不存在，则直接返回0。    返回被删除的元素数量。</p>
+<pre><code>LSET key index value       
+</code></pre><p>设定链表中指定位置的值为新值，其中0表示第一个元素，即头部元素，-1表示尾部元素。如果索引值Index超出了链表中元素的数量范围，该命令将返回相关的错误信息。<br>(对指定脚标的值进行设置)</p>
+<pre><code>LINDEX key index       
+</code></pre><p>该命令将返回链表中指定位置(index)的元素，index是0-based，表示头部元素，如果index为-1，表示尾部元素。如果与该Key关联的不是链表，该命令将返回相关的错误信息。    返回请求的元素，如果index超出范围，则返回nil。<br>(读出指定脚标的值)</p>
+<pre><code>LTRIM key start end      
+</code></pre><p>该命令将仅保留指定范围内的元素，从而保证链接中的元素数量相对恒定。start和stop参数都是0-based，0表示头部元素。和其他命令一样，start和stop也可以为负值，-1表示尾部元素。如果start大于链表的尾部，或start大于stop，该命令不错报错，而是返回一个空的链表，与此同时该Key也将被删除。如果stop大于元素的数量，则保留从start开始剩余的所有元素。     </p>
+<pre><code>LINSERT key BEFORE|AFTER pivot value   
+</code></pre><p>该命令的功能是在pivot元素的前面或后面插入参数中的元素value。如果Key不存在，该命令将不执行任何操作。如果与Key关联的Value类型不是链表，相关的错误信息将被返回。    成功插入后链表中元素的数量，如果没有找到pivot，返回-1，如果key不存在，返回0。<br>(在指定的某个value前或后插入一个新的value)</p>
+<pre><code>RPUSH key value [value ...]      
+</code></pre><p>在指定Key所关联的List Value的尾部插入参数中给出的所有Values。如果该Key不存在，该命令将在插入之前创建一个与该Key关联的空链表，之后再将数据从链表的尾部插入。如果该键的Value不是链表类型，该命令将返回相关的错误信息。     插入后链表中元素的数量。 </p>
+<pre><code>RPUSHX key value      
+</code></pre><p>仅有当参数中指定的Key存在时，该命令才会在其所关联的List Value的尾部插入参数中给出的Value，否则将不会有任何操作发生。     插入后链表中元素的数量。 </p>
+<pre><code>RPOP key      
+</code></pre><p>返回并弹出指定Key关联的链表中的最后一个元素，即尾部元素，。如果该Key不存，返回nil。     链表尾部的元素。 </p>
+<pre><code>RPOPLPUSH source destination      
+</code></pre><p>原子性的从与source键关联的链表尾部弹出一个元素，同时再将弹出的元素插入到与destination键关联的链表的头部。如果source键不存在，该命令将返回nil，同时不再做任何其它的操作了。如果source和destination是同一个键，则相当于原子性的将其关联链表中的尾部元素移到该链表的头部。    返回弹出和插入的元素。</p>
+<h3 id="三、命令示例："><a href="#三、命令示例：" class="headerlink" title="三、命令示例："></a>三、命令示例：</h3><h4 id="1-LPUSH-LPUSHX-LRANGE"><a href="#1-LPUSH-LPUSHX-LRANGE" class="headerlink" title="1. LPUSH/LPUSHX/LRANGE:"></a>1. LPUSH/LPUSHX/LRANGE:</h4><pre><code>/&gt; redis-cli    #在Shell提示符下启动redis客户端工具。
+redis 127.0.0.1:6379&gt; del mykey
+(integer) 1
+#mykey键并不存在，该命令会创建该键及与其关联的List，之后在将参数中的values从左到右依次插入。
+redis 127.0.0.1:6379&gt; lpush mykey a b c d
+(integer) 4
+#取从位置0开始到位置2结束的3个元素。
+redis 127.0.0.1:6379&gt; lrange mykey 0 2
+1) &quot;d&quot;
+2) &quot;c&quot;
+3) &quot;b&quot;
+#取链表中的全部元素，其中0表示第一个元素，-1表示最后一个元素。
+redis 127.0.0.1:6379&gt; lrange mykey 0 -1
+1) &quot;d&quot;
+2) &quot;c&quot;
+3) &quot;b&quot;
+4) &quot;a&quot;
+#mykey2键此时并不存在，因此该命令将不会进行任何操作，其返回值为0。
+redis 127.0.0.1:6379&gt; lpushx mykey2 e
+(integer) 0
+#可以看到mykey2没有关联任何List Value。
+redis 127.0.0.1:6379&gt; lrange mykey2 0 -1
+(empty list or set)
+#mykey键此时已经存在，所以该命令插入成功，并返回链表中当前元素的数量。
+redis 127.0.0.1:6379&gt; lpushx mykey e
+(integer) 5
+#获取该键的List Value的头部元素。
+redis 127.0.0.1:6379&gt; lrange mykey 0 0
+1) &quot;e&quot;
+</code></pre><h4 id="2-LPOP-LLEN"><a href="#2-LPOP-LLEN" class="headerlink" title="2. LPOP/LLEN:"></a>2. LPOP/LLEN:</h4><pre><code>redis 127.0.0.1:6379&gt; lpush mykey a b c d
+(integer) 4
+redis 127.0.0.1:6379&gt; lpop mykey
+&quot;d&quot;
+redis 127.0.0.1:6379&gt; lpop mykey
+&quot;c&quot;
+#在执行lpop命令两次后，链表头部的两个元素已经被弹出，此时链表中元素的数量是2
+redis 127.0.0.1:6379&gt; llen mykey
+(integer) 2
+</code></pre><h4 id="3-LREM-LSET-LINDEX-LTRIM"><a href="#3-LREM-LSET-LINDEX-LTRIM" class="headerlink" title="3.LREM/LSET/LINDEX/LTRIM:"></a>3.LREM/LSET/LINDEX/LTRIM:</h4><pre><code>#为后面的示例准备测试数据。
+redis 127.0.0.1:6379&gt; lpush mykey a b c d a c
+(integer) 6
+#从头部(left)向尾部(right)变量链表，删除2个值等于a的元素，返回值为实际删除的数量。
+redis 127.0.0.1:6379&gt; lrem mykey 2 a
+(integer) 2
+#看出删除后链表中的全部元素。
+redis 127.0.0.1:6379&gt; lrange mykey 0 -1
+1) &quot;c&quot;
+2) &quot;d&quot;
+3) &quot;c&quot;
+4) &quot;b&quot;
+#获取索引值为1(头部的第二个元素)的元素值。
+redis 127.0.0.1:6379&gt; lindex mykey 1
+&quot;d&quot;
+#将索引值为1(头部的第二个元素)的元素值设置为新值e。
+redis 127.0.0.1:6379&gt; lset mykey 1 e
+OK
+#查看是否设置成功。
+redis 127.0.0.1:6379&gt; lindex mykey 1
+&quot;e&quot;
+#索引值6超过了链表中元素的数量，该命令返回nil。
+redis 127.0.0.1:6379&gt; lindex mykey 6
+(nil)
+#设置的索引值6超过了链表中元素的数量，设置失败，该命令返回错误信息。
+redis 127.0.0.1:6379&gt; lset mykey 6 hh
+(error) ERR index out of range
+#仅保留索引值0到2之间的3个元素，注意第0个和第2个元素均被保留。
+redis 127.0.0.1:6379&gt; ltrim mykey 0 2
+OK
+#查看trim后的结果。
+redis 127.0.0.1:6379&gt; lrange mykey 0 -1
+1) &quot;c&quot;
+2) &quot;e&quot;
+3) &quot;c&quot;
+</code></pre><h4 id="4-LINSERT"><a href="#4-LINSERT" class="headerlink" title="4. LINSERT:"></a>4. LINSERT:</h4><pre><code>#删除该键便于后面的测试。
+redis 127.0.0.1:6379&gt; del mykey
+(integer) 1
+#为后面的示例准备测试数据。
+redis 127.0.0.1:6379&gt; lpush mykey a b c d e
+(integer) 5
+#在a的前面插入新元素a1。
+redis 127.0.0.1:6379&gt; linsert mykey before a a1
+(integer) 6
+#查看是否插入成功，从结果看已经插入。注意lindex的index值是0-based。
+redis 127.0.0.1:6379&gt; lindex mykey 0
+&quot;e&quot;
+#在e的后面插入新元素e2，从返回结果看已经插入成功。
+redis 127.0.0.1:6379&gt; linsert mykey after e e2
+(integer) 7
+#再次查看是否插入成功。
+redis 127.0.0.1:6379&gt; lindex mykey 1
+&quot;e2&quot;
+#在不存在的元素之前或之后插入新元素，该命令操作失败，并返回-1。
+redis 127.0.0.1:6379&gt; linsert mykey after k a
+(integer) -1
+#为不存在的Key插入新元素，该命令操作失败，返回0。
+redis 127.0.0.1:6379&gt; linsert mykey1 after a a2
+(integer) 0
+</code></pre><h4 id="5-RPUSH-RPUSHX-RPOP-RPOPLPUSH"><a href="#5-RPUSH-RPUSHX-RPOP-RPOPLPUSH" class="headerlink" title="5. RPUSH/RPUSHX/RPOP/RPOPLPUSH:"></a>5. RPUSH/RPUSHX/RPOP/RPOPLPUSH:</h4><pre><code>#删除该键，以便于后面的测试。
+redis 127.0.0.1:6379&gt; del mykey
+(integer) 1
+#从链表的尾部插入参数中给出的values，插入顺序是从左到右依次插入。
+redis 127.0.0.1:6379&gt; rpush mykey a b c d
+(integer) 4
+#通过lrange的可以获悉rpush在插入多值时的插入顺序。
+redis 127.0.0.1:6379&gt; lrange mykey 0 -1
+1) &quot;a&quot;
+2) &quot;b&quot;
+3) &quot;c&quot;
+4) &quot;d&quot;
+#该键已经存在并且包含4个元素，rpushx命令将执行成功，并将元素e插入到链表的尾部。
+redis 127.0.0.1:6379&gt; rpushx mykey e
+(integer) 5
+#通过lindex命令可以看出之前的rpushx命令确实执行成功，因为索引值为4的元素已经是新元素了。
+redis 127.0.0.1:6379&gt; lindex mykey 4
+&quot;e&quot;
+#由于mykey2键并不存在，因此该命令不会插入数据，其返回值为0。
+redis 127.0.0.1:6379&gt; rpushx mykey2 e
+(integer) 0
+#在执行rpoplpush命令前，先看一下mykey中链表的元素有哪些，注意他们的位置关系。
+redis 127.0.0.1:6379&gt; lrange mykey 0 -1
+1) &quot;a&quot;
+2) &quot;b&quot;
+3) &quot;c&quot;
+4) &quot;d&quot;
+5) &quot;e&quot;
+#将mykey的尾部元素e弹出，同时再插入到mykey2的头部(原子性的完成这两步操作)。
+redis 127.0.0.1:6379&gt; rpoplpush mykey mykey2
+&quot;e&quot;
+#通过lrange命令查看mykey在弹出尾部元素后的结果。
+redis 127.0.0.1:6379&gt; lrange mykey 0 -1
+1) &quot;a&quot;
+2) &quot;b&quot;
+3) &quot;c&quot;
+4) &quot;d&quot;
+#通过lrange命令查看mykey2在插入元素后的结果。
+redis 127.0.0.1:6379&gt; lrange mykey2 0 -1
+1) &quot;e&quot;
+#将source和destination设为同一键，将mykey中的尾部元素移到其头部。
+redis 127.0.0.1:6379&gt; rpoplpush mykey mykey
+&quot;d&quot;
+#查看移动结果。
+redis 127.0.0.1:6379&gt; lrange mykey 0 -1
+1) &quot;d&quot;
+2) &quot;a&quot;
+3) &quot;b&quot;
+4) &quot;c&quot;
+</code></pre><h3 id="四、链表结构的小技巧："><a href="#四、链表结构的小技巧：" class="headerlink" title="四、链表结构的小技巧："></a>四、链表结构的小技巧：</h3><p>针对链表结构的Value，Redis在其官方文档中给出了一些实用技巧，如RPOPLPUSH命令，下面给出具体的解释。</p>
+<p>Redis链表经常会被用于消息队列的服务，以完成多程序之间的消息交换。假设一个应用程序正在执行LPUSH操作向链表中添加新的元素，我们通常将这样的程序称之为”生产者(Producer)”，而另外一个应用程序正在执行RPOP操作从链表中取出元素，我们称这样的程序为”消费者(Consumer)”。如果此时，消费者程序在取出消息元素后立刻崩溃，由于该消息已经被取出且没有被正常处理，那么我们就可以认为该消息已经丢失，由此可能会导致业务数据丢失，或业务状态的不一致等现象的发生。然而通过使用RPOPLPUSH命令，消费者程序在从主消息队列中取出消息之后再将其插入到备份队列中，直到消费者程序完成正常的处理逻辑后再将该消息从备份队列中删除。同时我们还可以提供一个守护进程，当发现备份队列中的消息过期时，可以重新将其再放回到主消息队列中，以便其它的消费者程序继续处理。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年11月30日 23:45</p>
+        <p>原始链接： <a class="post-url" href="/redis/redisdatatype/RedisOfList/" title="Redis数据类型之List">https://imtiercel.github.io/redis/redisdatatype/RedisOfList/</a></p>
+        <footer>
+            <a href="https://imtiercel.github.io">
+                <img src="/images/logo.png" alt="IM_Tiercel">
+                IM_Tiercel
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://imtiercel.github.io/redis/redisdatatype/RedisOfList/&title=《Redis数据类型之List》 — IM-Tiercel's Blog&pic=http://s1.wailian.download/2017/11/30/redis.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://imtiercel.github.io/redis/redisdatatype/RedisOfList/&title=《Redis数据类型之List》 — IM-Tiercel's Blog&source=记录生活点滴" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://imtiercel.github.io/redis/redisdatatype/RedisOfList/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis数据类型之List》 — IM-Tiercel's Blog&url=https://imtiercel.github.io/redis/redisdatatype/RedisOfList/&via=https://imtiercel.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://imtiercel.github.io/redis/redisdatatype/RedisOfList/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://imtiercel.github.io/redis/redisdatatype/RedisOfList/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、概述："><span class="post-toc-text">一、概述：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、相关命令列表："><span class="post-toc-text">二、相关命令列表：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、命令示例："><span class="post-toc-text">三、命令示例：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-LPUSH-LPUSHX-LRANGE"><span class="post-toc-text">1. LPUSH/LPUSHX/LRANGE:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-LPOP-LLEN"><span class="post-toc-text">2. LPOP/LLEN:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-LREM-LSET-LINDEX-LTRIM"><span class="post-toc-text">3.LREM/LSET/LINDEX/LTRIM:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-LINSERT"><span class="post-toc-text">4. LINSERT:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-RPUSH-RPUSHX-RPOP-RPOPLPUSH"><span class="post-toc-text">5. RPUSH/RPUSHX/RPOP/RPOPLPUSH:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四、链表结构的小技巧："><span class="post-toc-text">四、链表结构的小技巧：</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/redis/redisdatatype/RedisOfHash/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Redis数据类型之Hash
+        
+      </span>
+    </a>
+  
+  
+    <a href="/redis/redisdatatype/RedisOfSet/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Redis数据类型之Set</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 IM_Tiercel<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://imtiercel.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/blog搭建/">blog搭建</a><a class="category-link" href="/categories/redis基础/">redis基础</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>
