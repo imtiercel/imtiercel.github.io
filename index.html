@@ -107,14 +107,14 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
-    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redisdatatype/RedisOfSet" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
+      <a class="article-title" href="/redis/redisdatatype/RedisOfSet/"  >Redis数据类型之Set</a>
     </h1>
   
 
@@ -131,17 +131,15 @@
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfHash/" >
+            <a href="/redis/redisdatatype/RedisOfSet/" >
                 
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Set" title="Redis数据类型之Set">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
-二、相关命令列表：命令原型    
-时间复杂度  ...
+                一、概述：在Redis中，我们可以将Set类型看作为没有排序的字符集合，和List类型一样，我们也可以在该类型的数据值上执行添加、删除或判断某一元素是否存在等操作。需要说明的是，这些操作的时间复杂度为O(1)，即常量时间内完成次操作。Set可包含的最大元素数量是4294967295。      和List类型不同的是，Set集合中不允许出现重复的元素，这一点和C++标准库...
             </p>
         </div>
       
@@ -164,7 +162,7 @@
 
         </ul>
         
-            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/redis/redisdatatype/RedisOfSet/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -236,14 +234,14 @@
 
 
   
-    <article id="post-redis/redisdatatype/RedisOfSet" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/key/RedisOfKey" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfSet/"  >Redis数据类型之Set</a>
+      <a class="article-title" href="/redis/key/RedisOfKey/"  >Redis之Key操作</a>
     </h1>
   
 
@@ -260,15 +258,19 @@
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfSet/" >
+            <a href="/redis/key/RedisOfKey/" >
                 
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Set" title="Redis数据类型之Set">
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis之Key操作" title="Redis之Key操作">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一、概述：在Redis中，我们可以将Set类型看作为没有排序的字符集合，和List类型一样，我们也可以在该类型的数据值上执行添加、删除或判断某一元素是否存在等操作。需要说明的是，这些操作的时间复杂度为O(1)，即常量时间内完成次操作。Set可包含的最大元素数量是4294967295。      和List类型不同的是，Set集合中不允许出现重复的元素，这一点和C++标准库...
+                一、概述：针对key的通用操作
+二、相关命令列表：命令原型    
+时间复杂度    命令描述    返回值
+KEYS pattern     
+获取所有匹配pattern参数的Keys。需要说明的是，在我们的正常操作中应该尽量避免对该命令的调用，因为对于大型数据库而言，该命令是非常耗时的，对Redis服务器的性能打击也是比较大的。pattern支持glob-style的...
             </p>
         </div>
       
@@ -291,7 +293,135 @@
 
         </ul>
         
-            <a href="/redis/redisdatatype/RedisOfSet/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/redis/key/RedisOfKey/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/redisdatatype/RedisOfHash/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
+二、相关命令列表：命令原型    
+时间复杂度  ...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-11-30</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redisdatatype/RedisOfSortedSet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/redisdatatype/RedisOfSortedSet/"  >Redis数据类型之SortedSet</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/redisdatatype/RedisOfSortedSet/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之SortedSet" title="Redis数据类型之SortedSet">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、概述：Sorted-Sets和Sets类型极为相似，它们都是字符串的集合，都不允许重复的成员出现在一个Set中。它们之间的主要差别是Sorted-Sets中的每一个成员都会有一个分数(score)与之关联，Redis正是通过分数来为集合中的成员进行从小到大的排序。然而需要额外指出的是，尽管Sorted-Sets中的成员必须是唯一的，但是分数(score)却是可以重复的...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-11-30</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/redisdatatype/RedisOfSortedSet/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -359,69 +489,6 @@ APPEND key value
         </ul>
         
             <a href="/redis/redisdatatype/RedisOfString/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-redis/redisdatatype/RedisOfSortedSet" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfSortedSet/"  >Redis数据类型之SortedSet</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/redis基础/">redis基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfSortedSet/" >
-                
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之SortedSet" title="Redis数据类型之SortedSet">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一、概述：Sorted-Sets和Sets类型极为相似，它们都是字符串的集合，都不允许重复的成员出现在一个Set中。它们之间的主要差别是Sorted-Sets中的每一个成员都会有一个分数(score)与之关联，Redis正是通过分数来为集合中的成员进行从小到大的排序。然而需要额外指出的是，尽管Sorted-Sets中的成员必须是唯一的，但是分数(score)却是可以重复的...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-11-30</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/redis/" class="color1">redis</a>
-      
-    <a href="/tags/noSql/" class="color1">noSql</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/redis/redisdatatype/RedisOfSortedSet/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>

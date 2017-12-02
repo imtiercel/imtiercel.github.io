@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redis之Key操作 | IM-Tiercel&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="IM-Tiercel's Blog" />
+  
+  <meta name="description" content="一、概述：针对key的通用操作 二、相关命令列表：命令原型     时间复杂度    命令描述    返回值 KEYS pattern      获取所有匹配pattern参数的Keys。需要说明的是，在我们的正常操作中应该尽量避免对该命令的调用，因为对于大型数据库而言，该命令是非常耗时的，对Redis服务器的性能打击也是比较大的。pattern支持glob-style的通配符格式，如*表示任意一">
+<meta name="keywords" content="redis,noSql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis之Key操作">
+<meta property="og:url" content="https://imtiercel.github.io/redis/key/RedisOfKey/index.html">
+<meta property="og:site_name" content="IM-Tiercel&#39;s Blog">
+<meta property="og:description" content="一、概述：针对key的通用操作 二、相关命令列表：命令原型     时间复杂度    命令描述    返回值 KEYS pattern      获取所有匹配pattern参数的Keys。需要说明的是，在我们的正常操作中应该尽量避免对该命令的调用，因为对于大型数据库而言，该命令是非常耗时的，对Redis服务器的性能打击也是比较大的。pattern支持glob-style的通配符格式，如*表示任意一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-02T14:27:11.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis之Key操作">
+<meta name="twitter:description" content="一、概述：针对key的通用操作 二、相关命令列表：命令原型     时间复杂度    命令描述    返回值 KEYS pattern      获取所有匹配pattern参数的Keys。需要说明的是，在我们的正常操作中应该尽量避免对该命令的调用，因为对于大型数据库而言，该命令是非常耗时的，对Redis服务器的性能打击也是比较大的。pattern支持glob-style的通配符格式，如*表示任意一">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">IM-Tiercel&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        IM-Tiercel&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 Java 开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="IM-Tiercel" target="_blank" href="//imtiercel.github.io/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/imtiercel">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/3953904265">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/key/RedisOfKey" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Redis之Key操作
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/redis基础/">redis基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-11-30
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="一、概述："><a href="#一、概述：" class="headerlink" title="一、概述："></a>一、概述：</h3><p>针对key的通用操作</p>
+<h3 id="二、相关命令列表："><a href="#二、相关命令列表：" class="headerlink" title="二、相关命令列表："></a>二、相关命令列表：</h3><p>命令原型    </p>
+<p>时间复杂度    命令描述    返回值</p>
+<pre><code>KEYS pattern     
+</code></pre><p>获取所有匹配pattern参数的Keys。需要说明的是，在我们的正常操作中应该尽量避免对该命令的调用，因为对于大型数据库而言，该命令是非常耗时的，对Redis服务器的性能打击也是比较大的。pattern支持glob-style的通配符格式，如*表示任意一个或多个字符，?表示任意字符，[abc]表示方括号中任意一个字母。    匹配模式的键列表。</p>
+<pre><code>DEL key [key ...]     
+</code></pre><p>从数据库删除中参数中指定的keys，如果指定键不存在，则直接忽略。还需要另行指出的是，如果指定的Key关联的数据类型不是String类型，而是List、Set、Hashes和Sorted Set等容器类型，该命令删除每个键的时间复杂度为O(M)，其中M表示容器中元素的数量。而对于String类型的Key，其时间复杂度为O(1)。    实际被删除的Key数量。</p>
+<pre><code>EXISTS key      
+</code></pre><p>判断指定键是否存在。    1表示存在，0表示不存在。</p>
+<pre><code>MOVE key db      
+</code></pre><p>将当前数据库中指定的键Key移动到参数中指定的数据库中。如果该Key在目标数据库中已经存在，或者在当前数据库中并不存在，该命令将不做任何操作并返回0。      移动成功返回1，否则0。<br>（切换到另一个库  select 1  ）</p>
+<pre><code>RENAME key newkey      
+</code></pre><p>为指定指定的键重新命名，如果参数中的两个Keys的名字相同，或者是源Key不存在，该命令都会返回相关的错误信息。如果newKey已经存在，则直接覆盖。      </p>
+<pre><code>RENAMENX key newkey     
+</code></pre><p>如果新值不存在，则将参数中的原值修改为新值。其它条件和RENAME一致。    1表示修改成功，否则0。</p>
+<pre><code>PERSIST key     
+</code></pre><p>如果Key存在过期时间，该命令会将其过期时间消除，使该Key不再有超时，而是可以持久化存储。    1表示Key的过期时间被移出，0表示该Key不存在或没有过期时间。</p>
+<pre><code>EXPIRE key seconds      
+</code></pre><p>该命令为参数中指定的Key设定超时的秒数，在超过该时间后，Key被自动的删除。如果该Key在超时之前被修改，与该键关联的超时将被移除。     1表示超时被设置，0则表示Key不存在，或不能被设置。</p>
+<pre><code>EXPIREAT key timestamp  
+</code></pre><p>该命令的逻辑功能和EXPIRE完全相同，唯一的差别是该命令指定的超时时间是绝对时间，而不是相对时间。该时间参数是Unix timestamp格式的，即从1970年1月1日开始所流经的秒数。    1表示超时被设置，0则表示Key不存在，或不能被设置。 </p>
+<pre><code>TTL key      
+</code></pre><p>获取该键所剩的超时描述。     返回所剩描述，如果该键不存在或没有超时设置，则返回-1。</p>
+<pre><code>RANDOMKEY     
+</code></pre><p>从当前打开的数据库中随机的返回一个Key。    返回的随机键，如果该数据库是空的则返回nil。</p>
+<pre><code>TYPE key      
+</code></pre><p>获取与参数中指定键关联值的类型，该命令将以字符串的格式返回。    返回的字符串为string、list、set、hash和zset，如果key不存在返回none。</p>
+<h3 id="三、命令示例："><a href="#三、命令示例：" class="headerlink" title="三、命令示例："></a>三、命令示例：</h3><h4 id="1-KEYS-RENAME-DEL-EXISTS-MOVE-RENAMENX"><a href="#1-KEYS-RENAME-DEL-EXISTS-MOVE-RENAMENX" class="headerlink" title="1. KEYS/RENAME/DEL/EXISTS/MOVE/RENAMENX:"></a>1. KEYS/RENAME/DEL/EXISTS/MOVE/RENAMENX:</h4><pre><code>#在Shell命令行下启动Redis客户端工具。
+/&gt; redis-cli
+#清空当前选择的数据库，以便于对后面示例的理解。
+redis 127.0.0.1:6379&gt; flushdb
+OK
+#添加String类型的模拟数据。
+redis 127.0.0.1:6379&gt; set mykey 2
+OK
+redis 127.0.0.1:6379&gt; set mykey2 &quot;hello&quot;
+OK
+#添加Set类型的模拟数据。
+redis 127.0.0.1:6379&gt; sadd mysetkey 1 2 3
+(integer) 3
+#添加Hash类型的模拟数据。
+redis 127.0.0.1:6379&gt; hset mmtest username &quot;stephen&quot;
+(integer) 1
+#根据参数中的模式，获取当前数据库中符合该模式的所有key，从输出可以看出，该命令在执行时并不区分与Key关联的Value类型。
+redis 127.0.0.1:6379&gt; keys my*
+1) &quot;mysetkey&quot;
+2) &quot;mykey&quot;
+3) &quot;mykey2&quot;
+#删除了两个Keys。
+redis 127.0.0.1:6379&gt; del mykey mykey2
+(integer) 2
+#查看一下刚刚删除的Key是否还存在，从返回结果看，mykey确实已经删除了。
+redis 127.0.0.1:6379&gt; exists mykey
+(integer) 0
+#查看一下没有删除的Key，以和上面的命令结果进行比较。
+redis 127.0.0.1:6379&gt; exists mysetkey
+(integer) 1
+#将当前数据库中的mysetkey键移入到ID为1的数据库中，从结果可以看出已经移动成功。
+redis 127.0.0.1:6379&gt; move mysetkey 1
+(integer) 1
+#打开ID为1的数据库。
+redis 127.0.0.1:6379&gt; select 1
+OK
+#查看一下刚刚移动过来的Key是否存在，从返回结果看已经存在了。
+redis 127.0.0.1:6379[1]&gt; exists mysetkey
+(integer) 1
+#在重新打开ID为0的缺省数据库。
+redis 127.0.0.1:6379[1]&gt; select 0
+OK
+#查看一下刚刚移走的Key是否已经不存在，从返回结果看已经移走。
+redis 127.0.0.1:6379&gt; exists mysetkey
+(integer) 0
+#准备新的测试数据。    
+redis 127.0.0.1:6379&gt; set mykey &quot;hello&quot;
+OK
+#将mykey改名为mykey1
+redis 127.0.0.1:6379&gt; rename mykey mykey1
+OK
+#由于mykey已经被重新命名，再次获取将返回nil。
+redis 127.0.0.1:6379&gt; get mykey
+(nil)
+#通过新的键名获取。
+redis 127.0.0.1:6379&gt; get mykey1
+&quot;hello&quot;
+#由于mykey已经不存在了，所以返回错误信息。
+redis 127.0.0.1:6379&gt; rename mykey mykey1
+(error) ERR no such key
+#为renamenx准备测试key
+redis 127.0.0.1:6379&gt; set oldkey &quot;hello&quot;
+OK
+redis 127.0.0.1:6379&gt; set newkey &quot;world&quot;
+OK
+#由于newkey已经存在，因此该命令未能成功执行。
+redis 127.0.0.1:6379&gt; renamenx oldkey newkey
+(integer) 0
+#查看newkey的值，发现它也没有被renamenx覆盖。
+redis 127.0.0.1:6379&gt; get newkey
+&quot;world&quot;
+</code></pre><h4 id="2-PERSIST-EXPIRE-EXPIREAT-TTL"><a href="#2-PERSIST-EXPIRE-EXPIREAT-TTL" class="headerlink" title="2. PERSIST/EXPIRE/EXPIREAT/TTL:"></a>2. PERSIST/EXPIRE/EXPIREAT/TTL:</h4><pre><code>#为后面的示例准备的测试数据。
+redis 127.0.0.1:6379&gt; set mykey &quot;hello&quot;
+OK
+#将该键的超时设置为100秒。
+redis 127.0.0.1:6379&gt; expire mykey 100
+(integer) 1
+#通过ttl命令查看一下还剩下多少秒。
+redis 127.0.0.1:6379&gt; ttl mykey
+(integer) 97
+#立刻执行persist命令，该存在超时的键变成持久化的键，即将该Key的超时去掉。
+redis 127.0.0.1:6379&gt; persist mykey
+(integer) 1
+#ttl的返回值告诉我们，该键已经没有超时了。
+redis 127.0.0.1:6379&gt; ttl mykey
+(integer) -1
+#为后面的expire命令准备数据。
+redis 127.0.0.1:6379&gt; del mykey
+(integer) 1
+redis 127.0.0.1:6379&gt; set mykey &quot;hello&quot;
+OK
+#设置该键的超时被100秒。
+redis 127.0.0.1:6379&gt; expire mykey 100
+(integer) 1
+#用ttl命令看一下当前还剩下多少秒，从结果中可以看出还剩下96秒。
+redis 127.0.0.1:6379&gt; ttl mykey
+(integer) 96
+#重新更新该键的超时时间为20秒，从返回值可以看出该命令执行成功。
+redis 127.0.0.1:6379&gt; expire mykey 20
+(integer) 1
+#再用ttl确认一下，从结果中可以看出果然被更新了。
+redis 127.0.0.1:6379&gt; ttl mykey
+(integer) 17
+#立刻更新该键的值，以使其超时无效。
+redis 127.0.0.1:6379&gt; set mykey &quot;world&quot;
+OK
+#从ttl的结果可以看出，在上一条修改该键的命令执行后，该键的超时也无效了。
+redis 127.0.0.1:6379&gt; ttl mykey
+(integer) -1
+</code></pre><h4 id="3-TYPE-RANDOMKEY-SORT"><a href="#3-TYPE-RANDOMKEY-SORT" class="headerlink" title="3. TYPE/RANDOMKEY/SORT:"></a>3. TYPE/RANDOMKEY/SORT:</h4><pre><code>#由于mm键在数据库中不存在，因此该命令返回none。
+redis 127.0.0.1:6379&gt; type mm
+none
+#mykey的值是字符串类型，因此返回string。
+redis 127.0.0.1:6379&gt; type mykey
+string
+#准备一个值是set类型的键。
+redis 127.0.0.1:6379&gt; sadd mysetkey 1 2
+(integer) 2
+#mysetkey的键是set，因此返回字符串set。
+redis 127.0.0.1:6379&gt; type mysetkey
+set
+#返回数据库中的任意键。
+redis 127.0.0.1:6379&gt; randomkey
+&quot;oldkey&quot;
+#清空当前打开的数据库。
+redis 127.0.0.1:6379&gt; flushdb
+OK
+#由于没有数据了，因此返回nil。
+redis 127.0.0.1:6379&gt; randomkey
+(nil)
+</code></pre>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年12月02日 22:27</p>
+        <p>原始链接： <a class="post-url" href="/redis/key/RedisOfKey/" title="Redis之Key操作">https://imtiercel.github.io/redis/key/RedisOfKey/</a></p>
+        <footer>
+            <a href="https://imtiercel.github.io">
+                <img src="/images/logo.png" alt="IM_Tiercel">
+                IM_Tiercel
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://imtiercel.github.io/redis/key/RedisOfKey/&title=《Redis之Key操作》 — IM-Tiercel's Blog&pic=http://s1.wailian.download/2017/11/30/redis.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://imtiercel.github.io/redis/key/RedisOfKey/&title=《Redis之Key操作》 — IM-Tiercel's Blog&source=记录生活点滴" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://imtiercel.github.io/redis/key/RedisOfKey/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis之Key操作》 — IM-Tiercel's Blog&url=https://imtiercel.github.io/redis/key/RedisOfKey/&via=https://imtiercel.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://imtiercel.github.io/redis/key/RedisOfKey/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://imtiercel.github.io/redis/key/RedisOfKey/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、概述："><span class="post-toc-text">一、概述：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、相关命令列表："><span class="post-toc-text">二、相关命令列表：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、命令示例："><span class="post-toc-text">三、命令示例：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-KEYS-RENAME-DEL-EXISTS-MOVE-RENAMENX"><span class="post-toc-text">1. KEYS/RENAME/DEL/EXISTS/MOVE/RENAMENX:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-PERSIST-EXPIRE-EXPIREAT-TTL"><span class="post-toc-text">2. PERSIST/EXPIRE/EXPIREAT/TTL:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-TYPE-RANDOMKEY-SORT"><span class="post-toc-text">3. TYPE/RANDOMKEY/SORT:</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/redis/redisdatatype/RedisOfList/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Redis数据类型之List
+        
+      </span>
+    </a>
+  
+  
+    <a href="/redis/redisdatatype/RedisOfHash/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Redis数据类型之Hash</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 IM_Tiercel<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://imtiercel.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/blog搭建/">blog搭建</a><a class="category-link" href="/categories/redis基础/">redis基础</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>
