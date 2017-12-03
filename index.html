@@ -107,14 +107,14 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
-    <article id="post-redis/redisdatatype/RedisOfList" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/construct/introduce" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfList/"  >Redis数据类型之List</a>
+      <a class="article-title" href="/redis/construct/introduce/"  >Redis介绍，安装，连接。</a>
     </h1>
   
 
@@ -131,16 +131,18 @@
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfList/" >
+            <a href="/redis/construct/introduce/" >
                 
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之List" title="Redis数据类型之List">
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis介绍，安装，连接。" title="Redis介绍，安装，连接。">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一、概述：在Redis中，List类型是按照插入顺序排序的字符串链表。和数据结构中的普通链表一样，我们可以在其头部(left)和尾部(right)添加新的元素。在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。List中可以包含的最大元素数量是4294967295。
-从元素插入和删除的效...
+                一.什么是redis1.redis介绍Redis是一个高性能的kv对缓存和内存数据库(存的不像mysql那样的表)Redis的存储结构就是key-value，形式如下：注：redis中的value内部可以支持各种数据结构类型，比如可以存入一个普通的string，还可以存list，set，hashmap，sortedSet（有序的set）
+2.redis应用场景
+
+A、用来...
             </p>
         </div>
       
@@ -149,7 +151,7 @@
         
         <ul class="article-footer-menu">
             
-                <li><i class="fa fa-calendar"></i>2017-11-30</li>
+                <li><i class="fa fa-calendar"></i>2017-12-03</li>
             
             
   <li class="article-footer-tags">
@@ -163,7 +165,7 @@
 
         </ul>
         
-            <a href="/redis/redisdatatype/RedisOfList/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/redis/construct/introduce/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -216,7 +218,7 @@ KEYS pattern
         
         <ul class="article-footer-menu">
             
-                <li><i class="fa fa-calendar"></i>2017-11-30</li>
+                <li><i class="fa fa-calendar"></i>2017-12-02</li>
             
             
   <li class="article-footer-tags">
@@ -231,71 +233,6 @@ KEYS pattern
         </ul>
         
             <a href="/redis/key/RedisOfKey/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/redis基础/">redis基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfHash/" >
-                
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
-二、相关命令列表：命令原型    
-时间复杂度  ...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-11-30</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/redis/" class="color1">redis</a>
-      
-    <a href="/tags/noSql/" class="color1">noSql</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -422,6 +359,135 @@ KEYS pattern
         </ul>
         
             <a href="/redis/redisdatatype/RedisOfSortedSet/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redisdatatype/RedisOfList" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/redisdatatype/RedisOfList/"  >Redis数据类型之List</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/redisdatatype/RedisOfList/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之List" title="Redis数据类型之List">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、概述：在Redis中，List类型是按照插入顺序排序的字符串链表。和数据结构中的普通链表一样，我们可以在其头部(left)和尾部(right)添加新的元素。在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。List中可以包含的最大元素数量是4294967295。
+从元素插入和删除的效...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-11-30</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/redisdatatype/RedisOfList/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/redisdatatype/RedisOfHash/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
+二、相关命令列表：命令原型    
+时间复杂度  ...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-11-30</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -702,76 +768,11 @@ Windows/Mac/Linux 全平台客户端
 
 
   
-    <article id="post-maxiang" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/maxiang/"  >马克飞象 Markdown 语法效果查看</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/blog搭建/">blog搭建</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/maxiang/" >
-                
-                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1506339451909&di=73dd3d337b630545e97e685214c233da&imgtype=0&src=http%3A%2F%2Feasyread.ph.126.net%2FcpCq56soVP6WFh0p9M5zOA%3D%3D%2F7916643149173300921.jpg" alt="马克飞象 Markdown 语法效果查看" title="马克飞象 Markdown 语法效果查看">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                网址：https://maxiang.io/
-欢迎使用马克飞象@(示例笔记本)[马克飞象|帮助|Markdown]
-马克飞象是一款专为印象笔记（Evernote）打造的Markdown编辑器，通过精心的设计与技术实现，配合印象笔记强大的存储和同步功能，带来前所未有的书写体验。特点概述：
-
-功能丰富 ：支持高亮代码块、LaTeX 公式、流程图，本地图片以及附件上传，甚至截图...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-09-18</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hexo/" class="color5">hexo</a>
-      
-    <a href="/tags/blog/" class="color5">blog</a>
-      
-    <a href="/tags/markdown/" class="color4">markdown</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/maxiang/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
 
 
-  
-
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next >></a>
+  </nav>
 </section>
         
       </div>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redis介绍，安装，连接。 | IM-Tiercel&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="IM-Tiercel's Blog" />
+  
+  <meta name="description" content="一.什么是redis1.redis介绍Redis是一个高性能的kv对缓存和内存数据库(存的不像mysql那样的表)Redis的存储结构就是key-value，形式如下：注：redis中的value内部可以支持各种数据结构类型，比如可以存入一个普通的string，还可以存list，set，hashmap，sortedSet（有序的set） 2.redis应用场景  A、用来做缓存(ehcache/m">
+<meta name="keywords" content="redis,noSql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis介绍，安装，连接。">
+<meta property="og:url" content="https://imtiercel.github.io/redis/construct/introduce/index.html">
+<meta property="og:site_name" content="IM-Tiercel&#39;s Blog">
+<meta property="og:description" content="一.什么是redis1.redis介绍Redis是一个高性能的kv对缓存和内存数据库(存的不像mysql那样的表)Redis的存储结构就是key-value，形式如下：注：redis中的value内部可以支持各种数据结构类型，比如可以存入一个普通的string，还可以存list，set，hashmap，sortedSet（有序的set） 2.redis应用场景  A、用来做缓存(ehcache/m">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://s1.wailian.download/2017/12/03/redismap.png">
+<meta property="og:image" content="http://s1.wailian.download/2017/12/03/redis1.jpg">
+<meta property="og:image" content="http://s1.wailian.download/2017/12/03/redis2.jpg">
+<meta property="og:image" content="http://s1.wailian.download/2017/12/03/redis3.jpg">
+<meta property="og:image" content="http://s1.wailian.download/2017/12/03/redis4.jpg">
+<meta property="og:image" content="http://s1.wailian.download/2017/12/03/redis5.png">
+<meta property="og:updated_time" content="2017-12-03T15:23:38.720Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis介绍，安装，连接。">
+<meta name="twitter:description" content="一.什么是redis1.redis介绍Redis是一个高性能的kv对缓存和内存数据库(存的不像mysql那样的表)Redis的存储结构就是key-value，形式如下：注：redis中的value内部可以支持各种数据结构类型，比如可以存入一个普通的string，还可以存list，set，hashmap，sortedSet（有序的set） 2.redis应用场景  A、用来做缓存(ehcache/m">
+<meta name="twitter:image" content="http://s1.wailian.download/2017/12/03/redismap.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">IM-Tiercel&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        IM-Tiercel&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 Java 开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="IM-Tiercel" target="_blank" href="//imtiercel.github.io/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/imtiercel">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/3953904265">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/construct/introduce" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Redis介绍，安装，连接。
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/redis基础/">redis基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-12-03
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="一-什么是redis"><a href="#一-什么是redis" class="headerlink" title="一.什么是redis"></a>一.什么是redis</h2><h3 id="1-redis介绍"><a href="#1-redis介绍" class="headerlink" title="1.redis介绍"></a>1.redis介绍</h3><p>Redis是一个高性能的kv对缓存和内存数据库(存的不像mysql那样的表)<br>Redis的存储结构就是key-value，形式如下：<br><img src="http://s1.wailian.download/2017/12/03/redismap.png" alt="map"><br>注：redis中的value内部可以支持各种数据结构类型，比如可以存入一个普通的string，还可以存list，set，hashmap，sortedSet（有序的set）</p>
+<h3 id="2-redis应用场景"><a href="#2-redis应用场景" class="headerlink" title="2.redis应用场景"></a>2.redis应用场景</h3><blockquote>
+<ul>
+<li>A、用来做缓存(ehcache/memcached)——redis的所有数据是放在内存中的（内存数据库）</li>
+<li>B、可以在某些特定应用场景下替代传统数据库——比如社交类的应用</li>
+<li>C、在一些大型系统中，巧妙地实现一些特定的功能：session共享、购物车只要你有丰富的想象力，redis可以用在各种官网说明上没有提到的场景。。。。。</li>
+</ul>
+</blockquote>
+<h3 id="3-redis的特性"><a href="#3-redis的特性" class="headerlink" title="3.redis的特性"></a>3.redis的特性</h3><blockquote>
+<ul>
+<li>A、redis数据访问速度快（数据在内存中）</li>
+<li>B、redis的数据有持久化（持久化机制有两种：1、定期将内存数据dump到磁盘；2、aof持久化机制——用记日志的方式记录每一条数据更新操作，一旦出现灾难事件，可以通过日志重放来恢复整个数据库）</li>
+<li>C、redis还支持集群模式（容量可以线性扩展）</li>
+<li>D、redis相比其他缓存工具（ehcach/memcached），有一个鲜明的优势：支持丰富的数据结构</li>
+</ul>
+</blockquote>
+<h2 id="二-安装redis"><a href="#二-安装redis" class="headerlink" title="二.安装redis"></a>二.安装redis</h2><h3 id="1、先去官网（http-redis-io-download-）下载一个源码工程（redis官网版本只支持linux-微软开源事业部维护了一个windows版本）"><a href="#1、先去官网（http-redis-io-download-）下载一个源码工程（redis官网版本只支持linux-微软开源事业部维护了一个windows版本）" class="headerlink" title="1、先去官网（http://redis.io/download ）下载一个源码工程（redis官网版本只支持linux/微软开源事业部维护了一个windows版本）"></a>1、先去官网（<a href="http://redis.io/download" target="_blank" rel="external">http://redis.io/download</a> ）下载一个源码工程（redis官网版本只支持linux/微软开源事业部维护了一个windows版本）</h3><h3 id="2、把安装包上传到服务器，解压缩"><a href="#2、把安装包上传到服务器，解压缩" class="headerlink" title="2、把安装包上传到服务器，解压缩"></a>2、把安装包上传到服务器，解压缩</h3><h3 id="3、切换到解压出来的源码工程目录中cd-redis-2-6-16"><a href="#3、切换到解压出来的源码工程目录中cd-redis-2-6-16" class="headerlink" title="3、切换到解压出来的源码工程目录中cd redis-2.6.16"></a>3、切换到解压出来的源码工程目录中cd redis-2.6.16</h3><h3 id="4、用make命令来对redis的c语言源码工程进行编译"><a href="#4、用make命令来对redis的c语言源码工程进行编译" class="headerlink" title="4、用make命令来对redis的c语言源码工程进行编译"></a>4、用make命令来对redis的c语言源码工程进行编译</h3><h3 id="5、编译完成之后，用make-install命令进行安装"><a href="#5、编译完成之后，用make-install命令进行安装" class="headerlink" title="5、编译完成之后，用make  install命令进行安装"></a>5、编译完成之后，用make  install命令进行安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make  PREFIX=/usr/local/redis  install</div></pre></td></tr></table></figure>
+<p>安装成功的显示：<br><img src="http://s1.wailian.download/2017/12/03/redis1.jpg" alt="map"><br>进入redis的bin目录：<br><img src="http://s1.wailian.download/2017/12/03/redis2.jpg" alt="map"><br>然后再指定配置文件，启动redis服务：<br><img src="http://s1.wailian.download/2017/12/03/redis3.jpg" alt="map"><br>启动成功的显示：<br><img src="http://s1.wailian.download/2017/12/03/redis4.jpg" alt="map"><br>上述启动方法，会让redis服务进程运行在console前台，最好应该放到后台运行，可将启动命令改为如下方式：</p>
+<blockquote>
+<ul>
+<li>方式一</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nohup bin/redis-server ./redis.conf 1&gt;/dev/null 2&gt;&amp;1 &amp;</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>方式二</li>
+</ul>
+</blockquote>
+<p>修改配置文件<br>vi  redis.conf<br>修改其中一个配置<br><img src="http://s1.wailian.download/2017/12/03/redis5.png" alt="map"><br>保存文件后再用普通命令启动，也可以启动为后台模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/redis-server  ./redis.conf</div></pre></td></tr></table></figure>
+<h2 id="三-客户端连接"><a href="#三-客户端连接" class="headerlink" title="三.客户端连接"></a>三.客户端连接</h2><h3 id="1、用redis自带的命令行客户端"><a href="#1、用redis自带的命令行客户端" class="headerlink" title="1、用redis自带的命令行客户端"></a>1、用redis自带的命令行客户端</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">bin/redis-cli  -h  notrue-centos  -p  6379</div><div class="line"></div><div class="line">redis notrue-centos:6379&gt; ping</div><div class="line"></div><div class="line">PONG</div><div class="line"></div><div class="line">redis notrue-centos:6379&gt;</div></pre></td></tr></table></figure>
+<h3 id="2、或者用redis的api客户端连接"><a href="#2、或者用redis的api客户端连接" class="headerlink" title="2、或者用redis的api客户端连接"></a>2、或者用redis的api客户端连接</h3><p>新建一个maven工程，导入jedis的maven依赖坐标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;redis.clients&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;jedis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;2.7.2&lt;/version&gt;</div><div class="line">    &lt;type&gt;jar&lt;/type&gt;</div><div class="line">    &lt;scope&gt;compile&lt;/scope&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<p>然后写一个类用来测试服务器跟客户端的连通性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisClientConnectionTest</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// 构造一个redis的客户端对象</span></div><div class="line"></div><div class="line">        Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"pinshutang.zicp.net"</span>, <span class="number">6379</span>);</div><div class="line"></div><div class="line">         String ping = jedis.ping();</div><div class="line"></div><div class="line">         System.out.println(ping);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年12月03日 23:23</p>
+        <p>原始链接： <a class="post-url" href="/redis/construct/introduce/" title="Redis介绍，安装，连接。">https://imtiercel.github.io/redis/construct/introduce/</a></p>
+        <footer>
+            <a href="https://imtiercel.github.io">
+                <img src="/images/logo.png" alt="IM_Tiercel">
+                IM_Tiercel
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://imtiercel.github.io/redis/construct/introduce/&title=《Redis介绍，安装，连接。》 — IM-Tiercel's Blog&pic=http://s1.wailian.download/2017/11/30/redis.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://imtiercel.github.io/redis/construct/introduce/&title=《Redis介绍，安装，连接。》 — IM-Tiercel's Blog&source=记录生活点滴" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://imtiercel.github.io/redis/construct/introduce/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis介绍，安装，连接。》 — IM-Tiercel's Blog&url=https://imtiercel.github.io/redis/construct/introduce/&via=https://imtiercel.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://imtiercel.github.io/redis/construct/introduce/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://imtiercel.github.io/redis/construct/introduce/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一-什么是redis"><span class="post-toc-text">一.什么是redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-redis介绍"><span class="post-toc-text">1.redis介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-redis应用场景"><span class="post-toc-text">2.redis应用场景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-redis的特性"><span class="post-toc-text">3.redis的特性</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二-安装redis"><span class="post-toc-text">二.安装redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、先去官网（http-redis-io-download-）下载一个源码工程（redis官网版本只支持linux-微软开源事业部维护了一个windows版本）"><span class="post-toc-text">1、先去官网（http://redis.io/download ）下载一个源码工程（redis官网版本只支持linux/微软开源事业部维护了一个windows版本）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、把安装包上传到服务器，解压缩"><span class="post-toc-text">2、把安装包上传到服务器，解压缩</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、切换到解压出来的源码工程目录中cd-redis-2-6-16"><span class="post-toc-text">3、切换到解压出来的源码工程目录中cd redis-2.6.16</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、用make命令来对redis的c语言源码工程进行编译"><span class="post-toc-text">4、用make命令来对redis的c语言源码工程进行编译</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、编译完成之后，用make-install命令进行安装"><span class="post-toc-text">5、编译完成之后，用make  install命令进行安装</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三-客户端连接"><span class="post-toc-text">三.客户端连接</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、用redis自带的命令行客户端"><span class="post-toc-text">1、用redis自带的命令行客户端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、或者用redis的api客户端连接"><span class="post-toc-text">2、或者用redis的api客户端连接</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/redis/key/RedisOfKey/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Redis之Key操作</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 IM_Tiercel<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://imtiercel.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/blog搭建/">blog搭建</a><a class="category-link" href="/categories/redis基础/">redis基础</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>
