@@ -107,6 +107,76 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-redis/construct/Replication" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/construct/Replication/"  >Redis之主从复制</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/construct/Replication/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis之主从复制" title="Redis之主从复制">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、Redis的Replication下面的列表清楚的解释了Redis Replication的特点和优势。
+
+
+1). 同一个Master可以同步多个Slaves。
+
+2). Slave同样可以接受其它Slaves的连接和同步请求，这样可以有效的分载Master的同步压力。因此我们可以将Redis的Replication架构视为图结构。
+
+3). Master Serv...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-12-04</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/construct/Replication/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-redis/construct/introduce" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -240,14 +310,14 @@ KEYS pattern
 
 
   
-    <article id="post-redis/redisdatatype/RedisOfSet" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfSet/"  >Redis数据类型之Set</a>
+      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
     </h1>
   
 
@@ -264,15 +334,17 @@ KEYS pattern
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfSet/" >
+            <a href="/redis/redisdatatype/RedisOfHash/" >
                 
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Set" title="Redis数据类型之Set">
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一、概述：在Redis中，我们可以将Set类型看作为没有排序的字符集合，和List类型一样，我们也可以在该类型的数据值上执行添加、删除或判断某一元素是否存在等操作。需要说明的是，这些操作的时间复杂度为O(1)，即常量时间内完成次操作。Set可包含的最大元素数量是4294967295。      和List类型不同的是，Set集合中不允许出现重复的元素，这一点和C++标准库...
+                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
+二、相关命令列表：命令原型    
+时间复杂度  ...
             </p>
         </div>
       
@@ -295,7 +367,7 @@ KEYS pattern
 
         </ul>
         
-            <a href="/redis/redisdatatype/RedisOfSet/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -430,71 +502,6 @@ KEYS pattern
 
 
   
-    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/redis基础/">redis基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfHash/" >
-                
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
-二、相关命令列表：命令原型    
-时间复杂度  ...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-11-30</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/redis/" class="color1">redis</a>
-      
-    <a href="/tags/noSql/" class="color1">noSql</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
     <article id="post-redis/redisdatatype/RedisOfString" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -555,6 +562,69 @@ APPEND key value
         </ul>
         
             <a href="/redis/redisdatatype/RedisOfString/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redisdatatype/RedisOfSet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/redisdatatype/RedisOfSet/"  >Redis数据类型之Set</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/redisdatatype/RedisOfSet/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Set" title="Redis数据类型之Set">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、概述：在Redis中，我们可以将Set类型看作为没有排序的字符集合，和List类型一样，我们也可以在该类型的数据值上执行添加、删除或判断某一元素是否存在等操作。需要说明的是，这些操作的时间复杂度为O(1)，即常量时间内完成次操作。Set可包含的最大元素数量是4294967295。      和List类型不同的是，Set集合中不允许出现重复的元素，这一点和C++标准库...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-11-30</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/redisdatatype/RedisOfSet/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -683,84 +753,6 @@ APPEND key value
         </ul>
         
             <a href="/StandardEdition/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-mdeditor" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/mdeditor/"  >Cmd Markdown 语法效果查看</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/blog搭建/">blog搭建</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/mdeditor/" >
-                
-                <img src="https://www.zybuluo.com/static/img/logo.png" alt="Cmd Markdown 语法效果查看" title="Cmd Markdown 语法效果查看">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                网址：https://www.zybuluo.com/mdeditor
-欢迎使用 Cmd Markdown 编辑阅读器
-我们理解您需要更便捷更高效的工具记录思想，整理笔记、知识，并将其中承载的价值传播给他人，Cmd Markdown 是我们给出的答案 —— 我们为记录思想和分享知识提供更专业的工具。 您可以使用 Cmd Markdown：
-
-
-整理知识，学习笔记
-发布日记，杂文，所见所想
-撰写发布技术文稿（代码支持）
-撰写发布学术论文（LaTeX 公式支持）
-
-
-
-除了您现在看到的这个 Cmd Markdown 在线版本，您还可以前往以下网址下载：
-Windows/Mac/Linux 全平台客户端
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-09-18</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hexo/" class="color5">hexo</a>
-      
-    <a href="/tags/blog/" class="color5">blog</a>
-      
-    <a href="/tags/markdown/" class="color4">markdown</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/mdeditor/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
