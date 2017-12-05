@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redis之持久化 | IM-Tiercel&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="IM-Tiercel's Blog" />
+  
+  <meta name="description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：   该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。       2). AOF持久化:   该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。   3). 无持久化：   我们可以通过配置的方式禁用Redis服务器的持久化功能，这样">
+<meta name="keywords" content="redis,noSql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis之持久化">
+<meta property="og:url" content="https://imtiercel.github.io/redis/construct/persistent/index.html">
+<meta property="og:site_name" content="IM-Tiercel&#39;s Blog">
+<meta property="og:description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：   该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。       2). AOF持久化:   该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。   3). 无持久化：   我们可以通过配置的方式禁用Redis服务器的持久化功能，这样">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-05T14:36:15.415Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis之持久化">
+<meta name="twitter:description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：   该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。       2). AOF持久化:   该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。   3). 无持久化：   我们可以通过配置的方式禁用Redis服务器的持久化功能，这样">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">IM-Tiercel&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        IM-Tiercel&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 Java 开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="IM-Tiercel" target="_blank" href="//imtiercel.github.io/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/imtiercel">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/3953904265">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/construct/persistent" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Redis之持久化
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/redis基础/">redis基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-12-05
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="一、Redis提供了哪些持久化机制"><a href="#一、Redis提供了哪些持久化机制" class="headerlink" title="一、Redis提供了哪些持久化机制"></a>一、Redis提供了哪些持久化机制</h3><blockquote>
+<ul>
+<li>1). RDB持久化：</li>
+</ul>
+</blockquote>
+<p>该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。    </p>
+<blockquote>
+<ul>
+<li>2). AOF持久化:</li>
+</ul>
+</blockquote>
+<p>该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。</p>
+<blockquote>
+<ul>
+<li>3). 无持久化：</li>
+</ul>
+</blockquote>
+<p>我们可以通过配置的方式禁用Redis服务器的持久化功能，这样我们就可以将Redis视为一个功能加强版的memcached了。</p>
+<blockquote>
+<ul>
+<li>4). 同时应用AOF和RDB。</li>
+</ul>
+</blockquote>
+<h3 id="二、RDB机制的优势和劣势"><a href="#二、RDB机制的优势和劣势" class="headerlink" title="二、RDB机制的优势和劣势"></a>二、RDB机制的优势和劣势</h3><h4 id="RDB存在哪些优势呢？"><a href="#RDB存在哪些优势呢？" class="headerlink" title="RDB存在哪些优势呢？"></a>RDB存在哪些优势呢？</h4><blockquote>
+<ul>
+<li><p>1). 一旦采用该方式，那么你的整个Redis数据库将只包含一个文件，这对于文件备份而言是非常完美的。比如，你可能打算每个小时归档一次最近24小时的数据，同时还要每天归档一次最近30天的数据。通过这样的备份策略，一旦系统出现灾难性故障，我们可以非常容易的进行恢复。</p>
+</li>
+<li><p>2). 对于灾难恢复而言，RDB是非常不错的选择。因为我们可以非常轻松的将一个单独的文件压缩后再转移到其它存储介质上。</p>
+</li>
+<li><p>3). 性能最大化。对于Redis的服务进程而言，在开始持久化时，它唯一需要做的只是fork出子进程，之后再由子进程完成这些持久化的工作，这样就可以极大的避免服务进程执行IO操作了。</p>
+</li>
+<li><p>4). 相比于AOF机制，如果数据集很大，RDB的启动效率会更高。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="RDB又存在哪些劣势呢？"><a href="#RDB又存在哪些劣势呢？" class="headerlink" title="RDB又存在哪些劣势呢？"></a>RDB又存在哪些劣势呢？</h4><blockquote>
+<ul>
+<li><p>1). 如果你想保证数据的高可用性，即最大限度的避免数据丢失，那么RDB将不是一个很好的选择。因为系统一旦在定时持久化之前出现宕机现象，此前没有来得及写入磁盘的数据都将丢失。</p>
+</li>
+<li><p>2). 由于RDB是通过fork子进程来协助完成数据持久化工作的，因此，如果当数据集较大时，可能会导致整个服务器停止服务几百毫秒，甚至是1秒钟。</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="三、AOF机制的优势和劣势"><a href="#三、AOF机制的优势和劣势" class="headerlink" title="三、AOF机制的优势和劣势"></a>三、AOF机制的优势和劣势</h3><h4 id="AOF的优势有哪些呢？"><a href="#AOF的优势有哪些呢？" class="headerlink" title="AOF的优势有哪些呢？"></a>AOF的优势有哪些呢？</h4><blockquote>
+<ul>
+<li><p>1). 该机制可以带来更高的数据安全性，即数据持久性。Redis中提供了3中同步策略，即每秒同步、每修改同步和不同步。事实上，每秒同步也是异步完成的，其效率也是非常高的，所差的是一旦系统出现宕机现象，那么这一秒钟之内修改的数据将会丢失。而每修改同步，我们可以将其视为同步持久化，即每次发生的数据变化都会被立即记录到磁盘中。可以预见，这种方式在效率上是最低的。至于无同步，无需多言，我想大家都能正确的理解它。</p>
+</li>
+<li><p>2). 由于该机制对日志文件的写入操作采用的是append模式，因此在写入过程中即使出现宕机现象，也不会破坏日志文件中已经存在的内容。然而如果我们本次操作只是写入了一半数据就出现了系统崩溃问题，不用担心，在Redis下一次启动之前，我们可以通过redis-check-aof工具来帮助我们解决数据一致性的问题。</p>
+</li>
+<li><p>3). 如果日志过大，Redis可以自动启用rewrite机制。即Redis以append模式不断的将修改数据写入到老的磁盘文件中，同时Redis还会创建一个新的文件用于记录此期间有哪些修改命令被执行。因此在进行rewrite切换时可以更好的保证数据安全性。</p>
+</li>
+<li><p>4). AOF包含一个格式清晰、易于理解的日志文件用于记录所有的修改操作。事实上，我们也可以通过该文件完成数据的重建。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="AOF的劣势有哪些呢？"><a href="#AOF的劣势有哪些呢？" class="headerlink" title="AOF的劣势有哪些呢？"></a>AOF的劣势有哪些呢？</h4><blockquote>
+<ul>
+<li><p>1). 对于相同数量的数据集而言，AOF文件通常要大于RDB文件。</p>
+</li>
+<li><p>2). 根据同步策略的不同，AOF在运行效率上往往会慢于RDB。总之，每秒同步策略的效率是比较高的，同步禁用策略的效率和RDB一样高效。</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="四、其它"><a href="#四、其它" class="headerlink" title="四、其它"></a>四、其它</h3><h4 id="1-Snapshotting"><a href="#1-Snapshotting" class="headerlink" title="1. Snapshotting:"></a>1. Snapshotting:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">缺省情况下，Redis会将数据集的快照dump到dump.rdb文件中。此外，我们也可以通过配置文件来修改Redis服务器dump快照的频率，</div><div class="line">在打开6379.conf文件之后，我们搜索save，可以看到下面的配置信息：</div><div class="line"></div><div class="line">save 900 1              #在900秒(15分钟)之后，如果至少有1个key发生变化，则dump内存快照。</div><div class="line">save 300 10             #在300秒(5分钟)之后，如果至少有10个key发生变化，则dump内存快照。</div><div class="line">save 60 10000           #在60秒(1分钟)之后，如果至少有10000个key发生变化，则dump内存快照。</div></pre></td></tr></table></figure>
+<h4 id="2-Dump快照的机制："><a href="#2-Dump快照的机制：" class="headerlink" title="2. Dump快照的机制："></a>2. Dump快照的机制：</h4><blockquote>
+<ul>
+<li><p>1). Redis先fork子进程。</p>
+</li>
+<li><p>2). 子进程将快照数据写入到临时RDB文件中。</p>
+</li>
+<li><p>3). 当子进程完成数据写入操作后，再用临时文件替换老的文件。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="3-AOF文件："><a href="#3-AOF文件：" class="headerlink" title="3. AOF文件："></a>3. AOF文件：</h4><p>上面已经多次讲过，RDB的快照定时dump机制无法保证很好的数据持久性。如果我们的应用确实非常关注此点，我们可以考虑使用Redis中的AOF机制。对于Redis服务器而言，其缺省的机制是RDB，如果需要使用AOF，则需要修改配置文件中的以下条目：</p>
+<p>将<code>appendonly no</code>改为<code>appendonly yes</code></p>
+<p>从现在起，Redis在每一次接收到数据修改的命令之后，都会将其追加到AOF文件中。在Redis下一次重新启动时，需要加载AOF文件中的信息来构建最新的数据到内存中。</p>
+<h4 id="4-AOF的配置："><a href="#4-AOF的配置：" class="headerlink" title="4. AOF的配置："></a>4. AOF的配置：</h4><p>在Redis的配置文件中存在三种同步方式，它们分别是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">appendfsync always      #每次有数据修改发生时都会写入AOF文件。</div><div class="line">appendfsync everysec    #每秒钟同步一次，该策略为AOF的缺省策略。</div><div class="line">appendfsync no          #从不同步。高效但是数据不会被持久化。</div></pre></td></tr></table></figure>
+<h4 id="5-如何修复坏损的AOF文件："><a href="#5-如何修复坏损的AOF文件：" class="headerlink" title="5. 如何修复坏损的AOF文件："></a>5. 如何修复坏损的AOF文件：</h4><blockquote>
+<ul>
+<li><p>1). 将现有已经坏损的AOF文件额外拷贝出来一份。</p>
+</li>
+<li><p>2). 执行”redis-check-aof –fix <filename>“命令来修复坏损的AOF文件。</filename></p>
+</li>
+<li><p>3). 用修复后的AOF文件重新启动Redis服务器。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="6-Redis的数据备份："><a href="#6-Redis的数据备份：" class="headerlink" title="6. Redis的数据备份："></a>6. Redis的数据备份：</h4><p>在Redis中我们可以通过<code>copy</code>的方式在线备份正在运行的Redis数据文件。<br>这是因为RDB文件一旦被生成之后就不会再被修改。<br>Redis每次都是将最新的数据dump到一个临时文件中，之后在利用rename函数原子性的将临时文件改名为原有的数据文件名。</p>
+<p>因此我们可以说，在任意时刻copy数据文件都是安全的和一致的。鉴于此，我们就可以通过创建<code>cron job</code>的方式定时备份Redis的数据文件，并将备份文件copy到安全的磁盘介质中。  </p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年12月05日 22:36</p>
+        <p>原始链接： <a class="post-url" href="/redis/construct/persistent/" title="Redis之持久化">https://imtiercel.github.io/redis/construct/persistent/</a></p>
+        <footer>
+            <a href="https://imtiercel.github.io">
+                <img src="/images/logo.png" alt="IM_Tiercel">
+                IM_Tiercel
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://imtiercel.github.io/redis/construct/persistent/&title=《Redis之持久化》 — IM-Tiercel's Blog&pic=http://s1.wailian.download/2017/11/30/redis.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://imtiercel.github.io/redis/construct/persistent/&title=《Redis之持久化》 — IM-Tiercel's Blog&source=记录生活点滴" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://imtiercel.github.io/redis/construct/persistent/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis之持久化》 — IM-Tiercel's Blog&url=https://imtiercel.github.io/redis/construct/persistent/&via=https://imtiercel.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://imtiercel.github.io/redis/construct/persistent/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://imtiercel.github.io/redis/construct/persistent/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、Redis提供了哪些持久化机制"><span class="post-toc-text">一、Redis提供了哪些持久化机制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、RDB机制的优势和劣势"><span class="post-toc-text">二、RDB机制的优势和劣势</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#RDB存在哪些优势呢？"><span class="post-toc-text">RDB存在哪些优势呢？</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#RDB又存在哪些劣势呢？"><span class="post-toc-text">RDB又存在哪些劣势呢？</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、AOF机制的优势和劣势"><span class="post-toc-text">三、AOF机制的优势和劣势</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AOF的优势有哪些呢？"><span class="post-toc-text">AOF的优势有哪些呢？</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AOF的劣势有哪些呢？"><span class="post-toc-text">AOF的劣势有哪些呢？</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四、其它"><span class="post-toc-text">四、其它</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-Snapshotting"><span class="post-toc-text">1. Snapshotting:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-Dump快照的机制："><span class="post-toc-text">2. Dump快照的机制：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-AOF文件："><span class="post-toc-text">3. AOF文件：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-AOF的配置："><span class="post-toc-text">4. AOF的配置：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-如何修复坏损的AOF文件："><span class="post-toc-text">5. 如何修复坏损的AOF文件：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6-Redis的数据备份："><span class="post-toc-text">6. Redis的数据备份：</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/redis/construct/Replication/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Redis之主从复制</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 IM_Tiercel<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://imtiercel.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/blog搭建/">blog搭建</a><a class="category-link" href="/categories/redis基础/">redis基础</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>

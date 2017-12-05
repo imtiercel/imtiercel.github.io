@@ -107,6 +107,86 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-redis/construct/persistent" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/construct/persistent/"  >Redis之持久化</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/construct/persistent/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis之持久化" title="Redis之持久化">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、Redis提供了哪些持久化机制
+
+1). RDB持久化：
+
+
+该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。    
+
+
+2). AOF持久化:
+
+
+该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。
+
+
+3). 无持久化：
+
+
+我们可以通过配置的方式禁用Redi...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-12-05</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/construct/persistent/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-redis/construct/Replication" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -310,14 +390,14 @@ KEYS pattern
 
 
   
-    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redisdatatype/RedisOfString" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
+      <a class="article-title" href="/redis/redisdatatype/RedisOfString/"  >Redis数据类型之String</a>
     </h1>
   
 
@@ -334,17 +414,19 @@ KEYS pattern
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfHash/" >
+            <a href="/redis/redisdatatype/RedisOfString/" >
                 
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之String" title="Redis数据类型之String">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
-二、相关命令列表：命令原型    
-时间复杂度  ...
+                一、概述：字符串类型是Redis中最为基础的数据存储类型，它在Redis中是二进制安全的，这便意味着该类型可以接受任何格式的数据，如JPEG图像数据或Json对象描述信息等。在Redis中字符串类型的Value最多可以容纳的数据长度是512M。
+二、相关命令列表：命令原型
+时间复杂度    命令描述    返回值
+APPEND key value  
+如果该Key已经存在...
             </p>
         </div>
       
@@ -367,7 +449,7 @@ KEYS pattern
 
         </ul>
         
-            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/redis/redisdatatype/RedisOfString/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -502,73 +584,6 @@ KEYS pattern
 
 
   
-    <article id="post-redis/redisdatatype/RedisOfString" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfString/"  >Redis数据类型之String</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/redis基础/">redis基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfString/" >
-                
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之String" title="Redis数据类型之String">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一、概述：字符串类型是Redis中最为基础的数据存储类型，它在Redis中是二进制安全的，这便意味着该类型可以接受任何格式的数据，如JPEG图像数据或Json对象描述信息等。在Redis中字符串类型的Value最多可以容纳的数据长度是512M。
-二、相关命令列表：命令原型
-时间复杂度    命令描述    返回值
-APPEND key value  
-如果该Key已经存在...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-11-30</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/redis/" class="color1">redis</a>
-      
-    <a href="/tags/noSql/" class="color1">noSql</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/redis/redisdatatype/RedisOfString/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
     <article id="post-redis/redisdatatype/RedisOfSet" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -625,6 +640,71 @@ APPEND key value
         </ul>
         
             <a href="/redis/redisdatatype/RedisOfSet/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/redisdatatype/RedisOfHash/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
+二、相关命令列表：命令原型    
+时间复杂度  ...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-11-30</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -689,70 +769,6 @@ APPEND key value
         </ul>
         
             <a href="/IntermediateEdition/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-StandardEdition" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/StandardEdition/"  >Hexo + GitHub搭建个人博客 --- Standard Edition</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/blog搭建/">blog搭建</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/StandardEdition/" >
-                
-                <img src="http://ojirj5wkr.bkt.clouddn.com/github+hexo.jpg" alt="Hexo + GitHub搭建个人博客 --- Standard Edition" title="Hexo + GitHub搭建个人博客 --- Standard Edition">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                摘要：想搭建博客这个想法，相信很多人都有过。而像我这个高中时期就开始玩blog的人更是早早萌生过想法。但是想和做还是差了一点，最近花些时间来搭建，希望能给需要的朋友提供一些帮助。
-搭建基础本博客是基于Hexo + GitHub 在 Windows 10(64位) 和 windows7(64位) 环境下搭建的，搭建前默认有GitHub账号并会基本的Git命令，如果没有请先自...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-09-20</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/hexo/" class="color5">hexo</a>
-      
-    <a href="/tags/blog/" class="color5">blog</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/StandardEdition/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
