@@ -8,18 +8,18 @@
   
     <meta name="keywords" content="IM-Tiercel's Blog" />
   
-  <meta name="description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：   该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。       2). AOF持久化:   该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。   3). 无持久化：   我们可以通过配置的方式禁用Redis服务器的持久化功能，这样">
+  <meta name="description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。      2). AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。  3). 无持久化：我们可以通过配置的方式禁用Redis服务器的持久化功能，这样我们就可以将Redis">
 <meta name="keywords" content="redis,noSql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis之持久化">
 <meta property="og:url" content="https://imtiercel.github.io/redis/construct/persistent/index.html">
 <meta property="og:site_name" content="IM-Tiercel&#39;s Blog">
-<meta property="og:description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：   该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。       2). AOF持久化:   该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。   3). 无持久化：   我们可以通过配置的方式禁用Redis服务器的持久化功能，这样">
+<meta property="og:description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。      2). AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。  3). 无持久化：我们可以通过配置的方式禁用Redis服务器的持久化功能，这样我们就可以将Redis">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-05T14:36:15.415Z">
+<meta property="og:updated_time" content="2017-12-05T14:40:39.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis之持久化">
-<meta name="twitter:description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：   该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。       2). AOF持久化:   该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。   3). 无持久化：   我们可以通过配置的方式禁用Redis服务器的持久化功能，这样">
+<meta name="twitter:description" content="一、Redis提供了哪些持久化机制  1). RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。      2). AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。  3). 无持久化：我们可以通过配置的方式禁用Redis服务器的持久化功能，这样我们就可以将Redis">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -145,25 +145,14 @@
             
             <h3 id="一、Redis提供了哪些持久化机制"><a href="#一、Redis提供了哪些持久化机制" class="headerlink" title="一、Redis提供了哪些持久化机制"></a>一、Redis提供了哪些持久化机制</h3><blockquote>
 <ul>
-<li>1). RDB持久化：</li>
-</ul>
-</blockquote>
-<p>该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。    </p>
-<blockquote>
-<ul>
-<li>2). AOF持久化:</li>
-</ul>
-</blockquote>
-<p>该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。</p>
-<blockquote>
-<ul>
-<li>3). 无持久化：</li>
-</ul>
-</blockquote>
-<p>我们可以通过配置的方式禁用Redis服务器的持久化功能，这样我们就可以将Redis视为一个功能加强版的memcached了。</p>
-<blockquote>
-<ul>
-<li>4). 同时应用AOF和RDB。</li>
+<li><p>1). RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。    </p>
+</li>
+<li><p>2). AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。</p>
+</li>
+<li><p>3). 无持久化：我们可以通过配置的方式禁用Redis服务器的持久化功能，这样我们就可以将Redis视为一个功能加强版的memcached了。</p>
+</li>
+<li><p>4). 同时应用AOF和RDB。</p>
+</li>
 </ul>
 </blockquote>
 <h3 id="二、RDB机制的优势和劣势"><a href="#二、RDB机制的优势和劣势" class="headerlink" title="二、RDB机制的优势和劣势"></a>二、RDB机制的优势和劣势</h3><h4 id="RDB存在哪些优势呢？"><a href="#RDB存在哪些优势呢？" class="headerlink" title="RDB存在哪些优势呢？"></a>RDB存在哪些优势呢？</h4><blockquote>
@@ -237,7 +226,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年12月05日 22:36</p>
+        <p>最后更新： 2017年12月05日 22:40</p>
         <p>原始链接： <a class="post-url" href="/redis/construct/persistent/" title="Redis之持久化">https://imtiercel.github.io/redis/construct/persistent/</a></p>
         <footer>
             <a href="https://imtiercel.github.io">
