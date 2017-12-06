@@ -107,6 +107,69 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-redis/construct/Operations" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/redis/construct/Operations/"  >Redis之运维相关</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/redis基础/">redis基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/redis/construct/Operations/" >
+                
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis之运维相关" title="Redis之运维相关">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                一、redis持久化，两种方式1、rdb快照方式12345678910----------rdb快照------------save 900 1save 300 10save 60 10000stop-writes-on-bgsave-error yesrdbcompression yesrdbchecksum yesdbfilename dump.rdbdir /var...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-12-06</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/redis/construct/Operations/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-redis/construct/persistent" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -379,14 +442,14 @@ KEYS pattern
 
 
   
-    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redisdatatype/RedisOfSortedSet" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
+      <a class="article-title" href="/redis/redisdatatype/RedisOfSortedSet/"  >Redis数据类型之SortedSet</a>
     </h1>
   
 
@@ -403,17 +466,15 @@ KEYS pattern
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfHash/" >
+            <a href="/redis/redisdatatype/RedisOfSortedSet/" >
                 
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之SortedSet" title="Redis数据类型之SortedSet">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
-二、相关命令列表：命令原型    
-时间复杂度  ...
+                一、概述：Sorted-Sets和Sets类型极为相似，它们都是字符串的集合，都不允许重复的成员出现在一个Set中。它们之间的主要差别是Sorted-Sets中的每一个成员都会有一个分数(score)与之关联，Redis正是通过分数来为集合中的成员进行从小到大的排序。然而需要额外指出的是，尽管Sorted-Sets中的成员必须是唯一的，但是分数(score)却是可以重复的...
             </p>
         </div>
       
@@ -436,71 +497,7 @@ KEYS pattern
 
         </ul>
         
-            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-redis/redisdatatype/RedisOfList" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfList/"  >Redis数据类型之List</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/redis基础/">redis基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfList/" >
-                
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之List" title="Redis数据类型之List">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                一、概述：在Redis中，List类型是按照插入顺序排序的字符串链表。和数据结构中的普通链表一样，我们可以在其头部(left)和尾部(right)添加新的元素。在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。List中可以包含的最大元素数量是4294967295。
-从元素插入和删除的效...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-11-30</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/redis/" class="color1">redis</a>
-      
-    <a href="/tags/noSql/" class="color1">noSql</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/redis/redisdatatype/RedisOfList/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/redis/redisdatatype/RedisOfSortedSet/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -571,14 +568,14 @@ KEYS pattern
 
 
   
-    <article id="post-redis/redisdatatype/RedisOfSortedSet" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redisdatatype/RedisOfList" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/redis/redisdatatype/RedisOfSortedSet/"  >Redis数据类型之SortedSet</a>
+      <a class="article-title" href="/redis/redisdatatype/RedisOfList/"  >Redis数据类型之List</a>
     </h1>
   
 
@@ -595,15 +592,16 @@ KEYS pattern
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/redis/redisdatatype/RedisOfSortedSet/" >
+            <a href="/redis/redisdatatype/RedisOfList/" >
                 
-                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之SortedSet" title="Redis数据类型之SortedSet">
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之List" title="Redis数据类型之List">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                一、概述：Sorted-Sets和Sets类型极为相似，它们都是字符串的集合，都不允许重复的成员出现在一个Set中。它们之间的主要差别是Sorted-Sets中的每一个成员都会有一个分数(score)与之关联，Redis正是通过分数来为集合中的成员进行从小到大的排序。然而需要额外指出的是，尽管Sorted-Sets中的成员必须是唯一的，但是分数(score)却是可以重复的...
+                一、概述：在Redis中，List类型是按照插入顺序排序的字符串链表。和数据结构中的普通链表一样，我们可以在其头部(left)和尾部(right)添加新的元素。在插入时，如果该键并不存在，Redis将为该键创建一个新的链表。与此相反，如果链表中所有的元素均被移除，那么该键也将会被从数据库中删除。List中可以包含的最大元素数量是4294967295。
+从元素插入和删除的效...
             </p>
         </div>
       
@@ -626,7 +624,7 @@ KEYS pattern
 
         </ul>
         
-            <a href="/redis/redisdatatype/RedisOfSortedSet/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/redis/redisdatatype/RedisOfList/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -701,14 +699,14 @@ APPEND key value
 
 
   
-    <article id="post-IntermediateEdition" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-redis/redisdatatype/RedisOfHash" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/IntermediateEdition/"  >Hexo + GitHub搭建个人博客 --- Intermediate Edition</a>
+      <a class="article-title" href="/redis/redisdatatype/RedisOfHash/"  >Redis数据类型之Hash</a>
     </h1>
   
 
@@ -716,7 +714,7 @@ APPEND key value
               <span class="header-cate">
                 <i class="fa fa-map-marker"></i>
                   
-                  <a href="/categories/blog搭建/">blog搭建</a>
+                  <a href="/categories/redis基础/">redis基础</a>
                   
               </span>
           
@@ -725,16 +723,17 @@ APPEND key value
     <div class="article-entry " itemprop="articleBody">
       
         <div class="article-img">
-            <a href="/IntermediateEdition/" >
+            <a href="/redis/redisdatatype/RedisOfHash/" >
                 
-                <img src="http://ojirj5wkr.bkt.clouddn.com/github+hexo.jpg" alt="Hexo + GitHub搭建个人博客 --- Intermediate Edition" title="Hexo + GitHub搭建个人博客 --- Intermediate Edition">
+                <img src="http://s1.wailian.download/2017/11/30/redis.jpg" alt="Redis数据类型之Hash" title="Redis数据类型之Hash">
                 
             </a>
         </div>
         <div class="article-feed">
             <p>
-                摘要：在成功将hexo默认blog发布到GitHub之后，遇到很多需要解决的问题，下面来讲述遇到的问题和解决的办法，希望对大家有一些帮助。
-一、提交输入账号信息问题1.将用户信息放在链接内将下面链接中的username和passwd换成你的账号名和密码1234deploy:  type: git 										#推送方式  repository: https://u...
+                一、概述：Redis中的Hashes类型可以看成具有String Key和String Value的map容器。所以该类型非常适合于存储值对象的信息。如Username、Password和Age等。如果Hash中包含很少的字段，那么该类型的数据也将仅占用很少的磁盘空间。每一个Hash可以存储4294967295个键值对。
+二、相关命令列表：命令原型    
+时间复杂度  ...
             </p>
         </div>
       
@@ -743,21 +742,21 @@ APPEND key value
         
         <ul class="article-footer-menu">
             
-                <li><i class="fa fa-calendar"></i>2017-09-21</li>
+                <li><i class="fa fa-calendar"></i>2017-11-30</li>
             
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/hexo/" class="color5">hexo</a>
+    <a href="/tags/redis/" class="color1">redis</a>
       
-    <a href="/tags/blog/" class="color5">blog</a>
+    <a href="/tags/noSql/" class="color1">noSql</a>
       
   </li>
 
         </ul>
         
-            <a href="/IntermediateEdition/#more" class="article-more-link" >more&gt;&gt;</a>
+            <a href="/redis/redisdatatype/RedisOfHash/#more" class="article-more-link" >more&gt;&gt;</a>
         
     </footer>
   </div>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redis之运维相关 | IM-Tiercel&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="IM-Tiercel's Blog" />
+  
+  <meta name="description" content="一、redis持久化，两种方式1、rdb快照方式12345678910----------rdb快照------------save 900 1save 300 10save 60 10000stop-writes-on-bgsave-error yesrdbcompression yesrdbchecksum yesdbfilename dump.rdbdir /var/rdb/ 2、aof日志">
+<meta name="keywords" content="redis,noSql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis之运维相关">
+<meta property="og:url" content="https://imtiercel.github.io/redis/construct/Operations/index.html">
+<meta property="og:site_name" content="IM-Tiercel&#39;s Blog">
+<meta property="og:description" content="一、redis持久化，两种方式1、rdb快照方式12345678910----------rdb快照------------save 900 1save 300 10save 60 10000stop-writes-on-bgsave-error yesrdbcompression yesrdbchecksum yesdbfilename dump.rdbdir /var/rdb/ 2、aof日志">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-06T15:22:11.477Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis之运维相关">
+<meta name="twitter:description" content="一、redis持久化，两种方式1、rdb快照方式12345678910----------rdb快照------------save 900 1save 300 10save 60 10000stop-writes-on-bgsave-error yesrdbcompression yesrdbchecksum yesdbfilename dump.rdbdir /var/rdb/ 2、aof日志">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">IM-Tiercel&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        IM-Tiercel&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个专注 Java 开发的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="IM-Tiercel" target="_blank" href="//imtiercel.github.io/">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/imtiercel">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/3953904265">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis/construct/Operations" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Redis之运维相关
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/redis基础/">redis基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-12-06
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="一、redis持久化，两种方式"><a href="#一、redis持久化，两种方式" class="headerlink" title="一、redis持久化，两种方式"></a>一、redis持久化，两种方式</h3><h4 id="1、rdb快照方式"><a href="#1、rdb快照方式" class="headerlink" title="1、rdb快照方式"></a>1、rdb快照方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">----------rdb快照------------</div><div class="line">save 900 1</div><div class="line">save 300 10</div><div class="line">save 60 10000</div><div class="line"></div><div class="line">stop-writes-on-bgsave-error yes</div><div class="line">rdbcompression yes</div><div class="line">rdbchecksum yes</div><div class="line">dbfilename dump.rdb</div><div class="line">dir /var/rdb/</div></pre></td></tr></table></figure>
+<h4 id="2、aof日志方式"><a href="#2、aof日志方式" class="headerlink" title="2、aof日志方式"></a>2、aof日志方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">-----------Aof的配置-----------</div><div class="line">appendonly no # 是否打开 aof日志功能</div><div class="line"></div><div class="line">appendfsync always #每一个命令都立即同步到aof，安全速度慢</div><div class="line">appendfsync everysec</div><div class="line">appendfsync no 写入工作交给操作系统，由操作系统判断缓冲区大小，统一写入到aof  同步频率低，速度快</div><div class="line"></div><div class="line">no-appendfsync-on-rewrite yes 正在导出rdb快照的时候不要写aof</div><div class="line">auto-aof-rewrite-percentage 100</div><div class="line">auto-aof-rewrite-min-size 64mb </div><div class="line"></div><div class="line">./bin/redis-benchmark -n 20000</div></pre></td></tr></table></figure>
+<h3 id="二、主从复制"><a href="#二、主从复制" class="headerlink" title="二、主从复制"></a>二、主从复制</h3><h4 id="Master配置"><a href="#Master配置" class="headerlink" title="Master配置"></a>Master配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1：关闭rdb快照（备份工作交给slave）</div><div class="line">2：可以开启aof</div></pre></td></tr></table></figure>
+<h4 id="slave配置"><a href="#slave配置" class="headerlink" title="slave配置"></a>slave配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">1、声明slave-of</div><div class="line">2、某一个slave打开rdb快照功能</div><div class="line">3、配置是否只读 slave-read-only</div><div class="line">4、可选配置密码（内网可不必）</div><div class="line">##在主服务器配置中修改  requirepass 123456</div><div class="line">##客户端连上后需要  auth 123456才能访问</div><div class="line">##但是从服务器已经连不成功master,需要在从服务器配置上  masterauth 123456</div><div class="line"></div><div class="line">cp redis.conf redis6380.conf</div><div class="line">cp redis.conf redis6381.conf</div><div class="line"></div><div class="line">pidfile /var/run/redis6380.pid</div><div class="line">port 6380</div><div class="line">dbfilename dump6380.rdb</div><div class="line">dir /var/rdb/</div></pre></td></tr></table></figure>
+<p><code>注：每次slave断开后，再次连接master时，都要master全部dump出来rdb再aof，即同步的过程需要重新来一遍，所以要记住，多台slave最好不要一下都启动起来。</code></p>
+<h3 id="三、redis运维命令"><a href="#三、redis运维命令" class="headerlink" title="三、redis运维命令"></a>三、redis运维命令</h3><p>TIME 查看时间戳与微秒数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">127.0.0.1:6379&gt; time</div><div class="line">1) &quot;1423329581&quot;</div><div class="line">2) &quot;398972&quot;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">dbsize 查看当前库中的key数量</div><div class="line"></div><div class="line">bgrewriteaof 后台进程重写aof</div><div class="line"></div><div class="line">bgsave  后台保存rdb快照</div><div class="line"></div><div class="line">save  保存rdb快照</div><div class="line"></div><div class="line">lastsave  上次保存时间</div><div class="line"></div><div class="line">slaveof  设为slave服务器</div><div class="line"></div><div class="line">flushall  清空所有db</div><div class="line"></div><div class="line">flushdb 清空当前db</div><div class="line"></div><div class="line">shutdown save|nosave  断开连接关闭服务器</div><div class="line"></div><div class="line"></div><div class="line">slowlog显示慢查询</div><div class="line">(多慢才算慢？ slowlog-log-slower-than 10000)</div><div class="line"></div><div class="line">存多少条？ slowlog-max-len 128 </div><div class="line"></div><div class="line">查看慢日志  slowlog get</div><div class="line"></div><div class="line">config get slowlog-log-slower-than </div><div class="line"></div><div class="line">config set slowlog-log-slower-than 10</div><div class="line"></div><div class="line"></div><div class="line">info  显示服务器信息</div><div class="line"></div><div class="line">config get 获取配置信息</div><div class="line"></div><div class="line">config set 设置配置信息</div><div class="line"></div><div class="line">monitor 打开控制台</div><div class="line"></div><div class="line">sync  主从同步</div><div class="line"></div><div class="line">client list 客户端列表</div><div class="line"></div><div class="line">client kill 关闭某个客户端</div><div class="line"></div><div class="line">client setname 为客户端设置名字</div><div class="line"></div><div class="line">client getname 获取客户端名字</div></pre></td></tr></table></figure>
+<h1 id="重要注意事项"><a href="#重要注意事项" class="headerlink" title="重要注意事项"></a>重要注意事项</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">如果不小心flushall了</div><div class="line"></div><div class="line">应该首先关闭redis服务进程     shutdown nosave</div><div class="line"></div><div class="line">然后编辑aof</div><div class="line"></div><div class="line">重启</div></pre></td></tr></table></figure>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年12月06日 23:22</p>
+        <p>原始链接： <a class="post-url" href="/redis/construct/Operations/" title="Redis之运维相关">https://imtiercel.github.io/redis/construct/Operations/</a></p>
+        <footer>
+            <a href="https://imtiercel.github.io">
+                <img src="/images/logo.png" alt="IM_Tiercel">
+                IM_Tiercel
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://imtiercel.github.io/redis/construct/Operations/&title=《Redis之运维相关》 — IM-Tiercel's Blog&pic=http://s1.wailian.download/2017/11/30/redis.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://imtiercel.github.io/redis/construct/Operations/&title=《Redis之运维相关》 — IM-Tiercel's Blog&source=记录生活点滴" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://imtiercel.github.io/redis/construct/Operations/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Redis之运维相关》 — IM-Tiercel's Blog&url=https://imtiercel.github.io/redis/construct/Operations/&via=https://imtiercel.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://imtiercel.github.io/redis/construct/Operations/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://imtiercel.github.io/redis/construct/Operations/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/redis/" class="color1">redis</a>
+      
+    <a href="/tags/noSql/" class="color1">noSql</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、redis持久化，两种方式"><span class="post-toc-text">一、redis持久化，两种方式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、rdb快照方式"><span class="post-toc-text">1、rdb快照方式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、aof日志方式"><span class="post-toc-text">2、aof日志方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、主从复制"><span class="post-toc-text">二、主从复制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Master配置"><span class="post-toc-text">Master配置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#slave配置"><span class="post-toc-text">slave配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、redis运维命令"><span class="post-toc-text">三、redis运维命令</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#重要注意事项"><span class="post-toc-text">重要注意事项</span></a>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/redis/construct/persistent/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Redis之持久化</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 IM_Tiercel<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://imtiercel.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/blog搭建/">blog搭建</a><a class="category-link" href="/categories/redis基础/">redis基础</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/noSql/" style="font-size: 20px;">noSql</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>
