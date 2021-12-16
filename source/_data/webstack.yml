@@ -1,0 +1,729 @@
+favicon: /favicon.ico
+banner: /images/webstack_banner_cn.png
+
+logo:
+  expanded: /images/logo@2x.png
+  collapsed: /images/logo-collapsed@2x.png
+  dark: /images/logo_dark@2x.png
+
+flag:
+  icon: flag-cn
+  name: Chinese
+
+search: true
+
+githubCorner: '<a href="https://github.com/imtiercel/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>'
+
+menu:
+  - name: 常用推荐
+    icon: far fa-star
+    config: hotTools
+  - name: 后端工具
+    icon: fas fa-tools
+    submenu:
+      - name: 开发工具
+        icon: fas fa-tools
+        config: devTools
+      - name: Shell
+        icon: fa fa-terminal
+        config: shellTools
+      - name: Markdown
+        icon: fa fa-terminal
+        config: markdownTools
+      - name: 算法
+        icon: fa fa-terminal
+        config: algorithms
+      - name: IDE插件
+        icon: fa fa-terminal
+        config: plugins
+      - name: 比对工具
+        icon: fas fa-tools
+        config: compareTools
+      - name: 文本工具
+        icon: fa fa-terminal
+        config: textTools
+  - name: Chrome插件
+    icon: fa fa-terminal
+    submenu:
+      - name: 下载网站
+        icon: linecons-thumbs-up
+        config: chromeWebSite
+      - name: 推荐插件
+        icon: far fa-star
+        config: chromeCrx
+  - name: 日常积累
+    icon: fa-toolbox
+    submenu:
+      - name: 优秀博客
+        icon: fa-toolbox
+        config: greatBlogs 
+      - name: 电子书下载
+        icon: fa-toolbox
+        config: ebooks 
+      - name: 站长工具
+        icon: fa-toolbox
+        config: webmasterTools 
+      - name: 跑步
+        icon: fa-toolbox
+        config: running 
+      - name: CI、CD
+        icon: fas fa-tools
+        config: cicd
+      - name: 低代码
+        icon: fas fa-tools
+        config: lowCode
+      - name: bug跟踪
+        icon: fas fa-tools
+        config: bugTracking
+  - name: 项目经理
+    icon: fa-toolbox
+    config: projectManager 
+  - name: 电脑装机
+    icon: fa-toolbox
+    config: installEquipment    
+  - name: 推荐导航
+    icon: fa-toolbox
+    config: frontEndTool
+hotTools:
+  - name: XNX3
+    url: http://www.templatespider.zvo.cn/
+    img: /images/logos/hotTools/xnx3.png
+    description: 所见网站，皆可为我所用。
+  - name: Trilium Notes
+    url: https://github.com/zadam/trilium
+    img: /images/logos/hotTools/trilium.png
+    description: 一个分层笔记应用程序，构建大型个人知识库。
+  - name: Github
+    url: https://github.com/
+    img: /images/logos/github.png
+    description: 面向开源及私有软件项目的托管平台。
+  - name: Docker Hub
+    url: https://registry.hub.docker.com/search?type=image
+    img: /images/logos/hotTools/dockerhub.png
+    description: 一个由Docker公司运行和管理的基于云的存储库。
+  - name: uTools
+    url: http://www.u.tools/
+    img: /images/logos/hotTools/utools.png
+    description: 极简、插件化、跨平台的现代桌面软件。
+  - name: 社保
+    url: http://rsj.beijing.gov.cn/csibiz/
+    img: /images/logos/hotTools/shebao.png
+    description: 北京市社会保险网上服务平台
+  - name: 摇号
+    url: https://xkczb.jtw.beijing.gov.cn/
+    img: /images/logos/hotTools/yaohao.png
+    description: 北京市小客车指标调控管理信息系统
+  - name: 北京本地宝
+    url: http://bj.bendibao.com/
+    img: /images/logos/hotTools/bjbdb.jpg
+    description: 这里有你关心的几乎所有信息。微信公众号，小程序都有。
+devTools:
+  - name: IDEA
+    url: https://www.jetbrains.com/idea/
+    img: /images/logos/ventoy/idea.png
+    description: The Capable & Ergonomic Java IDE by JetBrains.
+  - name: BCompare
+    url: https://www.scootersoftware.com/
+    img: /images/logos/compareTools/bcompare.png
+    description: 比对工具。
+  - name: XShell
+    url: https://www.xshellcn.com/
+    img: /images/logos/shellTools/xshell.png
+    description: 一款强大的安全终端模拟软件（windows）
+  - name: VMware Workstation
+    url: https://www.vmware.com/cn.html
+    img: /images/logos/ventoy/vmware.png
+    description: 桌面虚拟计算机软件。
+  - name: PLSQL
+    url: https://www.oracle.com/cn/database/technologies/appdev/plsql.html
+    img: /images/logos/ventoy/plsql.png
+    description: 数据库连接工具。
+  - name: Navicat
+    url: https://www.navicat.com.cn/
+    img: /images/logos/ventoy/navicat.png
+    description: 功能更强大。可视化数据与见解。提升整体的灵活性。
+  - name: Git
+    url: https://git-scm.com/
+    img: /images/logos/ventoy/git.png
+    description: 版本控制工具。
+  - name: DBeaver
+    url: https://dbeaver.com/
+    img: /images/logos/ventoy/dbeaver.png
+    description: 很强大
+  - name: electerm
+    url: https://electerm.github.io/electerm/
+    img: /images/logos/shellTools/electerm.png
+    description: electerm is a terminal/ssh/sftp client(linux, mac, win) 
+compareTools:
+  - name: WinMerge
+    url: https://winmerge.org/
+    img: /images/logos/compareTools/winmerge.png
+    description: You will see the difference…
+  - name: Diffuse
+    url: http://diffuse.sourceforge.net/
+    img: /images/logos/compareTools/diffuse.jpg
+    description: graphical tool for merging and comparing text files
+  - name: BCompare
+    url: https://www.scootersoftware.com/
+    img: /images/logos/compareTools/bcompare.png
+    description: 比对工具。
+  - name: Altova DiffDog
+    url: https://www.altova.com/diffdog
+    img: /images/logos/compareTools/diffDog.png
+    description: Meger tool
+  - name: AptDiff
+    url: https://aptdiff.software.informer.com/
+    img: /images/logos/compareTools/aptdiff.png
+    description: Is a visual text / binary files comparison and merging utility for Windows
+  - name: Code Compare
+    url: https://www.devart.com/codecompare/
+    img: /images/logos/compareTools/codecompare.png
+    description: File and Folder Merge Tool
+  - name: jq22
+    url: http://www.jq22.com/textDifference
+    img: /images/logos/github.png
+    description: 一款在线的文本比较工具
+cicd:
+  - name: Jenkins
+    url: https://www.jenkins.io/
+    img: /images/logos/cicd/jenkins.png
+    description: Build great things at any scale
+  - name: BuildMaster
+    url: https://inedo.com/buildmaster/download
+    img: /images/logos/cicd/buildMaster.png
+    description: Continuously Delivery anything, anywhere.
+  - name: Microtica
+    url: https://microtica.com/
+    img: /images/logos/cicd/microtica.jpg
+    description: Help Dev & Ops Teams Get More Done
+  - name: GitLab
+    url: https://about.gitlab.com/
+    img: /images/logos/cicd/gitlab.png
+    description: Iterate faster, innovate together
+  - name: CircleCI
+    url: https://circleci.com/
+    img: /images/logos/cicd/circleci.png
+    description: Continuous Integration and Delivery
+  - name: Bamboo
+    url: https://www.atlassian.com/software/bamboo
+    img: /images/logos/cicd/bamboo.png
+    description: Build, test, and deploy with confidence
+  - name: TravisCI
+    url: https://travis-ci.org/
+    img: /images/logos/cicd/travis-ci.png
+    description: Test and Deploy with Confidence
+  - name: Semaphore
+    url: https://semaphoreci.com/product
+    img: /images/logos/cicd/semaphore.png
+    description: A CI/CD tool to accelerate developer velocity
+  - name: Buddy
+    url: https://buddy.works/
+    img: /images/logos/cicd/buddy.png
+    description: The DevOps Automation Platform
+  - name: Drone.io
+    url: https://drone.io/
+    img: /images/logos/cicd/drone.png
+    description: Automate Software Testing and Delivery
+  - name: GoCD
+    url: https://www.gocd.org/
+    img: /images/logos/cicd/gocd.png
+    description: Open Source Continuous Delivery and Release Automation Server
+  - name: TeamCity
+    url: https://www.jetbrains.com/teamcity/
+    img: /images/logos/cicd/teamcity.png
+    description: the Hassle-Free CI and CD Server by JetBrains
+  - name: Buildkite
+    url: https://buildkite.com/
+    img: /images/logos/cicd/buildkite.png
+    description: Lightning fast testing and delivery for all your software projects
+  - name: Zuul
+    url: https://zuul-ci.org/
+    img: /images/logos/cicd/zuul.png
+    description: Zuul is an open source CI tool
+lowCode:
+  - name: 鲁班 H5 生成器
+    url: https://ly525.github.io/luban-h5/zh/
+    img: /images/logos/lowCode/lubanh5.jpg
+    description: 前后端均开源的H5制作平台
+  - name: 个人作品低代码平台
+    url: https://github.com/hesitanting/visual-drag-demo
+    img: /images/logos/github.png
+    description: 基于 Vue.js 技术栈
+  - name: 构建页面可视化编辑器
+    url: https://github.com/fantasticit/ramiko
+    img: /images/logos/github.png
+    description: 基于 next.js 构建页面可视化编辑器
+  - name: 随心秀
+    url: https://github.com/lzuntalented/lz-h5-edit
+    img: /images/logos/github.png
+    description:  react 版 H5 微场景编辑器
+  - name: h5-factory
+    url: https://github.com/yangyuji/h5-factory
+    img: /images/logos/github.png
+    description: H5 专题页面可视化编辑工具
+  - name: H5 移动端
+    url: https://github.com/buqiyuan/vite-vue3-lowcode
+    img: /images/logos/github.png
+    description: vue3.x vite2.x vant element-plus
+  - name: 海报生成器
+    url: https://gitee.com/vitojc/fast-poster
+    img: /images/logos/lowCode/gitee.png
+    description: 启动服务 > 编辑海报 > 生成代码
+  - name: Saltcorn
+    url: https://saltcorn.com/
+    img: /images/logos/lowCode/saltcorn.png
+    description: Build with no compromises, no code, in no time
+  - name: Joget DX
+    url: https://www.joget.com/
+    img: /images/logos/lowCode/joget.jpg
+    description: OPEN SOURCE WORKFLOW AND LOW CODE PLATFORM FOR DIGITAL TRANSFORMATION
+  - name: Digdag
+    url: https://www.digdag.io/
+    img: /images/logos/lowCode/digdag.png
+    description: Open Source Workflow Engine for the Multi-Cloud Era
+  - name: Stackstorm
+    url: https://stackstorm.com/
+    img: /images/logos/lowCode/stackStorm.png
+    description: StackStorm connects all your apps, services, and workflows.
+  - name: CUBA Platform
+    url: www.cuba-platform.com/
+    img: /images/logos/lowCode/cuba-platform.png
+    description: Rapid Application Development for Modern Web Applications
+  - name: Skyve
+    url: http://www.skyve.org/
+    img: /images/logos/lowCode/skyve.jpg
+    description: The Low Code Open Source Enterprise Platform
+  - name: Rintagi
+    url: https://medevel.com/rintagi/
+    img: /images/logos/lowCode/rintagi.png
+    description: a low-code platform for enterprise
+  - name: Opexava
+    url: https://www.openxava.org/en/ate/low-code-development-platform
+    img: /images/logos/lowCode/openxava.png
+    description: The best time-to-market for Java.
+  - name: Convertigo
+    url: https://www.convertigo.com/
+    img: /images/logos/lowCode/convertigo.png
+    description: Low / No Code mobile & web development platform
+  - name: Tymly
+    url: https://medevel.com/tymly-low-code/
+    img: /images/logos/lowCode/rintagi.png
+    description: an open-source low-code platform with re-usable components
+  - name: JUDO
+    url: https://www.judo.codes/
+    img: /images/logos/lowCode/judo.png
+    description: Judo Java Low-code Platform
+  - name: OpenCatapult
+    url: https://opencatapult.net/
+    img: /images/logos/lowCode/opencatapult.png
+    description: Open Source Enterprise Low Code Development Platform
+  - name: BudiBase
+    url: https://budibase.com/
+    img: /images/logos/lowCode/budibase.png
+    description: Create modern business apps in minutes
+  - name: Generative Objects（GO）Platform
+    url: https://www.generativeobjects.com/
+    img: /images/logos/lowCode/generativeObjects.jpg
+    description: IS THE FIRST OPEN SOURCE (*) "META LOW CODE" DEVELOPMENT PLATFORM
+  - name: Baserow
+    url: https://gitlab.com/bramw/baserow
+    img: /images/logos/lowCode/baserow.jpg
+    description: Baserow is an open source no-code database and Airtable alternative. 
+  - name: OS.bee
+    url: https://www.osbee.org/home/
+    img: /images/logos/lowCode/osbee.png
+    description: nothing
+  - name: nuBuilder
+    url: https://www.nubuilder.com/
+    img: /images/logos/lowCode/nuBuilder.png
+    description: nuBuilder is the world's easiest builder for - Database Applications.
+  - name: Metabase
+    url: https://medevel.com/metabase-low-code/
+    img: /images/logos/lowCode/rintagi.png
+    description: The ultimate Swiss knife open-source for getting insightful answers from databases
+bugTracking:
+  - name: BugHerd
+    url: https://bugherd.com/
+    img: /images/logos/bugTracking/bugherd.png
+    description: Best bug tracking tool & visual feedback software.
+  - name: Bugzilla
+    url: https://www.bugzilla.org/
+    img: /images/logos/bugTracking/buggie.png
+    description: Bugzilla is server software designed to help you manage software development.
+  - name: MantisBT
+    url: https://www.mantisbt.org/
+    img: /images/logos/bugTracking/mantis.png
+    description: MantisBT makes collaboration with team members & clients easy, fast, and professional.
+  - name: Donedone
+    url: https://www.donedone.com/
+    img: /images/logos/bugTracking/donedone.png
+    description: Manage projects and customers in one task, bug, & issue tracker software.
+  - name: Marker.io
+    url: https://marker.io/
+    img: /images/logos/bugTracking/marker.png
+    description: Website Feedback Tool & Bug Tracking
+  - name: Jira  
+    url: https://www.atlassian.com/software/jira
+    img: /images/logos/bugTracking/jira.png
+    description: Issue & Project Tracking Software
+  - name: Bughost
+    url: http://www.bughost.com/
+    img: /images/logos/bugTracking/bughost.jpg
+    description: Bug Tracking and Defect Tracker
+  - name: Zoho bugtracker
+    url: https://www.zoho.com/bugtracker/
+    img: /images/logos/bugTracking/zoho.png
+    description: Free Issue Tracker System
+  - name: Backlog
+    url: https://backlog.com/
+    img: /images/logos/bugTracking/backlog.png
+    description: Online Project Management Software for Developers
+  - name: Redmine
+    url: https://www.redmine.org/
+    img: /images/logos/bugTracking/redmine.png
+    description: Redmine is a flexible project management web application. 
+textTools:
+  - name: vim
+    url: https://www.vim.org/
+    img: /images/logos/textTools/vim.jpg
+    description: the ubiquitous text editor.
+  - name: Emacs
+    url: https://www.gnu.org/software/emacs/
+    img: /images/logos/textTools/emacs.png
+    description: An extensible, customizable, free/libre text editor — and more.
+  - name: Notepad++
+    url: https://notepad-plus-plus.org/downloads/
+    img: /images/logos/ventoy/notepad.png
+    description: Notepad++ is a free source code editor.
+  - name: EditPlus
+    url: https://www.editplus.com/
+    img: /images/logos/textTools/editplus.png
+    description:  Text editor with FTP, FTPS and sftp capabilities.
+  - name: UltraEdit
+    url: https://www.ultraedit.com/
+    img: /images/logos/textTools/ue.png
+    description: coding software
+  - name: PNEdit
+    url: www.pneditor.org/
+    img: /images/logos/github.png
+    description: Petri Net editor
+  - name: Sublime Text
+    url: https://www.sublimetext.com/
+    img: /images/logos/textTools/sublimetext.png
+    description: Text Editing, Done Right.
+  - name: Github Atom
+    url: https://atom.io/
+    img: /images/logos/textTools/atom.png
+    description: A hackable text editor for the 21st Century.
+markdownTools:
+  - name: Notable
+    url: https://notable.app/
+    img: /images/logos/markdownTools/notable.png
+    description: The Markdown-based note-taking app that doesn't suck.
+  - name: typora
+    url: https://typora.io/
+    img: /images/logos/markdownTools/typora.png
+    description: a markdown editor, markdown reader.
+  - name: Markdeep
+    url: https://casual-effects.com/markdeep/
+    img: /images/logos/markdownTools/markdeep.png
+    description: Markdeep is free and easy to use.
+  - name: Joplin
+    url: https://joplinapp.org/
+    img: /images/logos/markdownTools/joplin.png
+    description: Joplin is a free, open source note taking and to-do application
+  - name: Milkdown
+    url: https://milkdown.dev/#/
+    img: /images/logos/markdownTools/milkdown.png
+    description: Plugin Based WYSIWYG Markdown Editor Framework
+  - name: Mark Text
+    url: https://marktext.app/
+    img: /images/logos/markdownTools/marktext.png
+    description: Simple and Elegant Markdown Editor
+  - name: Haroopad
+    url: http://pad.haroopress.com/
+    img: /images/logos/markdownTools/haroopad.png
+    description: The Next Document processor based on Markdown
+algorithms:
+  - name: 算法合集
+    url: https://github.com/TheAlgorithms
+    img: /images/logos/algorithms/algorithms.png
+    description: Open Source resource for learning Data Structures
+plugins :
+  - name: IDE插件
+    url: /plugins
+    img: /images/logos/plugins/plugin.png
+    description: 插件推荐。
+shellTools:
+  - name: FinalShell
+    url: http://www.hostbuf.com/t/988.html
+    img: /images/logos/shellTools/finalshell.png
+    description: 一款免费的国产的集SSH工具，推荐使用。
+  - name: Oh My ZSH!
+    url: https://ohmyz.sh/
+    img: /images/logos/shellTools/ohmyz.png
+    description: linux和macOS的替代bash。
+  - name: Tabby
+    url: https://github.com/Eugeny/tabby
+    img: /images/logos/shellTools/tabby.png
+    description: 可无限定制的跨平台终端应用程序。
+  - name: terminal
+    url: https://github.com/microsoft/terminal
+    img: /images/logos/shellTools/terminal.png
+    description: windows新版terminal工具。
+  - name: iTerm2
+    url: https://iterm2.com/index.html
+    img: /images/logos/shellTools/iTerm2.png
+    description: macOS Terminal Replacement。
+  - name: XShell
+    url: https://www.xshellcn.com/
+    img: /images/logos/shellTools/xshell.png
+    description: 一款强大的安全终端模拟软件（windows）
+  - name: NuShell
+    url: https://github.com/nushell/nushell
+    img: /images/logos/shellTools/nushell.png
+    description: A new type of shell.
+chromeWebSite:
+  - name: 官方插件下载地址
+    url: https://chrome.google.com/webstore/category/extensions
+    img: /images/logos/chromeWebSite/crx4.png
+    description: 官方插件下载地址。
+  - name: Crx4
+    url: http://www.crx4.com
+    img: /images/logos/chromeWebSite/crx4.png
+    description: 长得有点像官方插件市场。
+  - name: 扩展迷
+    url: https://extfans.com
+    img: /images/logos/chromeWebSite/extfans.png
+    description: 最优雅全面的第三方商店。
+  - name: 极简插件
+    url: https://chrome.zzzmh.cn/
+    img: /images/logos/chromeWebSite/jijianchajian.png
+    description: 有简单的使用介绍，会提供一些特殊功能的插件。
+  - name: 插件网
+    url: http://www.cnplugins.com
+    img: /images/logos/chromeWebSite/chajianwang.jpg
+    description: 提供网盘以及chrome官方插件下载地址。
+  - name: Crx4Chrome
+    url: https://www.crx4chrome.com
+    img: /images/logos/chromeWebSite/crx4chrome.ico
+    description: 访问速度很快，可直接下载，提供插件历史版本。
+  - name: Chrome 插件网
+    url: https://www.chajian5.com
+    img: /images/logos/chromeWebSite/chajian5.png
+    description: 有简单的使用介绍，会提供一些特殊功能的插件。
+  - name: 插件管理器
+    url: https://www.extmanager.com/
+    img: /images/logos/chromeWebSite/extmanager.png
+    description: 无需搭梯子即可访问。
+chromeCrx: 
+  - name: 谷歌访问助手
+    url: https://chrome.zzzmh.cn/info?token=fjbknnledpckpbjcglogolokonffggpc
+    img: /images/logos/chromeCrx/chromehelp.png
+    description: 谷歌访问助手，可访问Google全家桶。
+  - name: Tampermonkey（油猴）
+    url: https://www.tampermonkey.net/
+    img: /images/logos/chromeCrx/tampermonkey.png
+    description: 最受欢迎的用户脚本管理器，不解释。
+  - name: SuperCopy 
+    url: https://chrome.google.com/webstore/detail/supercopy-enable-copy/onepmapfbjohnegdmfhndpefjkppbjkm
+    img: /images/logos/chromeCrx/supercopy.png
+    description: 一键破解禁止右键、选择、复制、粘贴。
+  - name: 沙拉查词
+    url: https://chrome.google.com/webstore/detail/%E6%B2%99%E6%8B%89%E6%9F%A5%E8%AF%8D-%E8%81%9A%E5%90%88%E8%AF%8D%E5%85%B8%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91/cdonnmffkdaoajfknoeeecmchibpmkmg
+    img: /images/logos/chromeCrx/saladict.png
+    description: 词典丰富，划词翻译，单词管理，保存查词历史。
+  - name: 图片助手(ImageAssistant)
+    url: https://chrome.google.com/webstore/detail/imageassistant-batch-imag/dbjbempljhcmhlfpfacalomonjpalpko
+    img: /images/logos/chromeCrx/imageAssistant.png
+    description: 嗅探、分析网页图片并提供批量下载等功能。
+  - name: Tab Snooze
+    url: https://chrome.google.com/webstore/detail/tab-snooze/pdiebiamhaleloakpcgmpnenggpjbcbm
+    img: /images/logos/chromeCrx/tabSnooze.png
+    description: 让您专注于工作，掌握浏览器中的所有任务。
+  - name: 书签侧边栏
+    url: https://chrome.google.com/webstore/detail/bookmark-sidebar/jdbnofccmhefkmjbkkdkfiicjkgofkdh
+    img: /images/logos/chromeCrx/bookmark.png
+    description: 允许您通过单击屏幕左侧来访问书签。
+  - name: Infinity新标签页 (Pro)
+    url: https://chrome.google.com/webstore/detail/infinity-new-tab-pro/nnnkddnnlpamobajfibfdgfnbcnkgngh
+    img: /images/logos/chromeCrx/infinity.png
+    description: 将原生新标签页替换为您保存的书签。
+  - name: Search to Play the Song
+    url: https://chrome.google.com/webstore/detail/search-to-play-the-song/anfmgjkkbagjfdejhbjdiapgkbhpigpm
+    img: /images/logos/chromeCrx/sps.jpg
+    description: 歌曲搜索试听 & 在线广播
+  - name: Listen1
+    url: https://chrome.google.com/webstore/detail/listen-1/indecfegkejajpaipjipfkkbedgaodbp
+    img: /images/logos/chromeCrx/Listen1.jpg
+    description: Listen1是一款支持多平台的音乐播放器。
+  - name: daily
+    url: https://chrome.google.com/webstore/detail/dailydev-the-homepage-dev/jlmpjdjjbgclbocgajdjefcidcncaied
+    img: /images/logos/chromeCrx/daily.jpg
+    description: Get a feed of the hottest developer news personalized to you.
+  - name: Devo
+    url: https://chrome.google.com/webstore/detail/devo/elkhalpmbmbaeoemecpcfdcoekmpgmdm
+    img: /images/logos/chromeCrx/devo.jpg
+    description: GitHub Trending, Hacker News and Product Hunt, on every new tab!
+  - name: Sitemod.io
+    url: https://chrome.google.com/webstore/detail/sitemodio/efjbaneaebkanjmhengnedpllfdiocin
+    img: /images/logos/chromeCrx/Sitemod.jpg
+    description: 不访问源代码的情况下修改网站，获得修改后的网站链接。
+  - name: Githunt
+    url: https://chrome.google.com/webstore/detail/githunt/khpcnaokfebphakjgdgpinmglconplhp
+    img: /images/logos/chromeCrx/Githunt.jpg
+    description: 优质开源项目发现
+  - name: Github-plus
+    url: https://chrome.google.com/webstore/detail/github-plus/lndphafdikhmpgopmchckooegfnifafm
+    img: /images/logos/chromeCrx/Github-plus.jpg
+    description: Chrome extension to make a little better use of GitHub。
+  - name: JSON Viewer Pro
+    url: https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh
+    img: /images/logos/chromeCrx/jsonviewer.png
+    description: The most beautiful and customizable JSON/JSONP highlighter that your eyes have ever seen.
+  - name: Postman Interceptor
+    url: https://chrome.google.com/webstore/detail/postman-interceptor/aicmkgpgakddgnaphhhpliifpcfhicfo
+    img: /images/logos/chromeCrx/postman.jpg
+    description: Sends requests fired through the Postman chrome app.
+  - name: Table of contents sidebar
+    url: https://chrome.google.com/webstore/detail/table-of-contents-sidebar/ohohkfheangmbedkgechjkmbepeikkej
+    img: /images/logos/chromeCrx/sidebar.jpg
+    description: 阅读很长篇幅的文章时候清晰的看到文章轮廓。
+  - name: Link to Text Fragment
+    url: https://chrome.google.com/webstore/detail/link-to-text-fragment/pbcodcjpfjdpcineamnnmbkkmkdpajjg
+    img: /images/logos/chromeCrx/link.jpg
+    description: 可以将网页文本以URL的形式分享给别人。
+  - name: Internet Download Manager
+    url: https://www.internetdownloadmanager.com/
+    img: /images/logos/chromeCrx/idm.jpg
+    description: 下载你懂的。
+frontEndTool:
+  - name: 设计师网站导航
+    url: http://webstack.cc/cn/index.html
+    img: /images/logos/frontEndTool/webstack.png
+    description: Designer. Viggo.
+  - name: HCLonely
+    url: https://www.hclonely.com/
+    img: /images/logos/frontEndTool/hclonely.jpg
+    description: 我们生活在阴沟里，但有人依然仰望星空。
+  - name: WebCC
+    url: https://web.hujiangtao.cn/
+    img: /images/logos/frontEndTool/webcc.png
+    description: 程序员网站导航。
+  - name: Edui123
+    url: https://edui123.com/
+    img: /images/logos/frontEndTool/eduilogo.png
+    description: 让教学简单一点点。
+projectManager:
+  - name: 
+    url: 
+    img: /images/logos/
+    description: 
+greatBlogs:
+  - name: bbsmax
+    url: https://www.bbsmax.com/
+    img: /images/logos/greatBlogs/bbsmax.png
+    description: 没找到作者相关信息。
+ebooks:
+  - name: zlibrary
+    url: https://u1lib.org/
+    img: /images/logos/ebooks/zlibrary.png
+    description:  The world's largest ebook library
+  - name: SaltTiger
+    url: https://salttiger.com/
+    img: /images/logos/ebooks/saltTiger.png
+    description: 每天一本编程书，每天进步一点点。
+  - name: Java知识分享网
+    url: http://www.java1234.com/
+    img: /images/logos/ebooks/java1234.png
+    description: 轻松学习从此开始！
+webmasterTools:
+  - name: 孟坤工具箱
+    url: http://tool.mkblog.cn/
+    img: /images/logos/webmasterTools/mengkun.png
+    description: 孟坤工具箱
+  - name: OneNav
+    url: https://nav.rss.ink/
+    img: /images/logos/webmasterTools/onenav.png
+    description: 您看到的是OneNav开发的书签管理器。
+  - name: 在线工具
+    url: https://tool.lu/
+    img: /images/logos/webmasterTools/tool.png
+    description: 你的工具箱
+  - name: 低调大师
+    url: https://tools.xujun.org/
+    img: /images/logos/webmasterTools/didiao.png
+    description: Tools工具站   
+  - name: jQuery插件库
+    url: https://www.jq22.com/
+    img: /images/logos/webmasterTools/jQuery22.png
+    description: 收集最全、最新、最好的jQuery插件
+running:
+  - name: 
+    url: 
+    img: /images/logos/
+    description: 
+installEquipment :
+  - name: 个人装机
+    url: /installEquipment
+    img: /images/logos/ventoy/ventoy.png
+    description: 个人装机使用。
+about:
+  url: /about/
+  icon: far fa-heart
+  name: 关于本站
+
+aboutPage:
+  website:
+    head: 关于本站
+    html: '<blockquote><p>一个想了多年，而很晚才付诸行动的导航</p></blockquote>'
+  webmaster:
+    head: 关于站长
+    name: IM-Tiercel
+    url: https://imtiercel.github.io/
+    img: /images/logos/myblog.png
+    description: 这个家伙很懒，什么都没有留下。
+    html: ''
+
+since: 2017
+
+busuanzi:
+  enable: true
+  position: sidebar # 'footer','sidebar'
+  pv: 本站总访问量$pv
+  uv: 本站总访客数$uv
+
+custom:
+  head: |- # 以下内容插入到<head></head>标签内，可设置多行，注意每行开头至少四个空格。
+    <!-- 直接添加html内容即可 -->
+    <!-- 可设置多行 -->
+  body: |- # 以下内容插入到</body>标签之前，可设置多行，注意每行开头至少四个空格
+    <!-- 直接添加html内容即可 -->
+    <!-- 可设置多行 -->
+
+js:
+  header: /js/header.js
+  footer: /js/footer.js
+  jquery: /js/jquery-1.11.1.min.js
+  bootstrap: /js/bootstrap.min.js
+  TweenMax: /js/TweenMax.min.js
+  resizeable: /js/resizeable.min.js
+  joinable: /js/joinable.js
+  xenonApi: /js/xenon-api.min.js
+  xenonToggles: /js/xenon-toggles.min.js
+  xenonCustom: /js/xenon-custom.min.js
+  lozad: /js/lozad.min.js
+  html5shiv: /js/html5shiv.min.js
+  respond: /js/respond.min.js
+  busuanzi: https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
+
+css:
+  hclonely: /css/hclonely.css
+  fonts: //fonts.loli.net/css?family=Arimo:400,700,400italic
+  linecons: /css/fonts/linecons/css/linecons.min.css
+  fontawesome: /css/fonts/fontawesome/css/all.min.css
+  bootstrap: /css/bootstrap.min.css
+  xenonCore: /css/xenon-core.min.css
+  xenonComponents: /css/xenon-components.min.css
+  xenonSkins: /css/xenon-skins.min.css
+  nav: /css/nav.min.css
